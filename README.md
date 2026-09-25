@@ -29,22 +29,22 @@ You don’t clone into a folder like normal repos.
 
 You do:
 
-```bash id="c1"
-git clone --bare <your-repo-url> $HOME/.cfg
+```sh
+git clone --bare <your-repo-url> $HOME/.dotrepo
 ```
 
 ---
 
 ## 3. Create the alias
 
-```bash id="c2"
-alias config='git --git-dir=$HOME/.cfg --work-tree=$HOME'
+```sh
+alias config='git --git-dir=$HOME/.dotrepo --work-tree=$HOME'
 ```
 
 Then make it permanent:
 
-```bash id="c3"
-echo "alias config='git --git-dir=$HOME/.cfg --work-tree=$HOME'" >> ~/.zshrc
+```sh
+echo "alias config='git --git-dir=$HOME/.dotrepo --work-tree=$HOME'" >> ~/.zshrc
 source ~/.zshrc
 ```
 
@@ -54,7 +54,7 @@ source ~/.zshrc
 
 Without this, your home dir will look chaotic:
 
-```bash id="c4"
+```sh
 config config --local status.showUntrackedFiles no
 ```
 
@@ -64,7 +64,7 @@ config config --local status.showUntrackedFiles no
 
 This is the key step:
 
-```bash id="c5"
+```sh
 config checkout
 ```
 
@@ -80,7 +80,7 @@ This:
 
 If the machine already has files:
 
-```bash id="c6"
+```sh
 config checkout -f
 ```
 
@@ -94,7 +94,7 @@ Dotfiles don’t install software — they only configure it.
 
 So you usually also run:
 
-```bash id="c7"
+```sh
 brew install neovim tmux kitty
 ```
 
@@ -104,7 +104,7 @@ or your OS equivalent.
 
 ## 7. Restart shell
 
-```bash id="c8"
+```sh
 exec zsh
 ```
 
@@ -132,7 +132,7 @@ So:
 
 Think of it like this:
 
-```text id="m1"
+```texh
 dotfiles repo = blueprint
 checkout = applying blueprint onto machine
 home directory = final rendered system
@@ -154,13 +154,13 @@ That defeats the entire system.
 
 Most modern setups add:
 
-```bash id="p1"
+```sh
 install.sh
 ```
 
 Which does everything:
 
-```bash id="p2"
+```sh
 git clone --bare ...
 config checkout
 install dependencies
@@ -169,7 +169,7 @@ set defaults
 
 So onboarding becomes:
 
-```bash id="p3"
+```sh
 curl install.sh | sh
 ```
 
@@ -177,4 +177,4 @@ curl install.sh | sh
 
 # 🚀 One-line answer
 
-> On a new machine you clone the bare repo into `~/.cfg`, set the `config` alias, run `config checkout`, and your home directory is reconstructed from your dotfiles automatically.
+> On a new machine you clone the bare repo into `~/.dotrepo`, set the `config` alias, run `config checkout`, and your home directory is reconstructed from your dotfiles automatically.

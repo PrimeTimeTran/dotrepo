@@ -4,10 +4,10 @@
 # ============================================================
 
 save-zsh-state() {
-    {
-        echo "export SHOW_GIT_PROMPT=${SHOW_GIT_PROMPT:-1}"
-        echo "export PROMPT_PATH='${PROMPT_PATH:-%1~}'"
-    } > ~/.config/zsh/state.zsh
+  {
+    echo "export SHOW_GIT_PROMPT=${SHOW_GIT_PROMPT:-1}"
+    echo "export PROMPT_PATH='${PROMPT_PATH:-%1~}'"
+  } > ~/.config/zsh/state.zsh
 }
 
 alias gitprompt-on='export SHOW_GIT_PROMPT=1 && save-zsh-state && rl'
@@ -30,16 +30,21 @@ alias zsh-function="zed ~/.config/zsh/function.zsh"
 alias zsh-alias="zed ~/.config/zsh/alias.zsh"
 alias zsh-alias-git="zed ~/.config/zsh/alias-git.zsh"
 alias zsh-completion="zed ~/.config/zsh/completion.zsh"
+alias zsh-herdr="zed ~/.config/herdr/config.toml"
+alias zsh-ghosty="zed ~/.config/ghostty/config.ghostty"
 alias zsh-wip="zed ~/.config/zsh/wip.zsh"
 
 # Dirs
-alias cd-kb="cd ~/KB"
 alias cd-blog="cd ~/KB/project/app/blog"
 alias cd-home="cd ~/Desktop"
-alias cd-dls="cd ~/Downloads"
-alias cd-docs="cd ~/Documents"
-alias cd-kb-project="cd ~/KB/project"
-alias cd-kb-project-app="cd ~/KB/project/app"
+alias cd-dl="cd ~/Downloads"
+alias cd-doc="cd ~/Documents"
+alias cd-kb="cd ~/KB"
+alias cd-app="cd ~/KB/project/app"
+alias cd-project="cd ~/KB/project"
+alias cd-crate="cd ~/KB/project/crates"
+alias cd-script="cd ~/KB/project/script"
+alias cd-consultants="cd ~/consultants"
 
 # HTOP
 # - CPU usage
@@ -52,7 +57,7 @@ alias system-profiler='htop'
 alias cfg-vim="vi ~/.cfg/my_configs.vim"
 alias cfg-skhd="zed ~/.config/skhd/skhdrc"
 alias cfg-zed="zed ~/.config/zed/keymap.json"
-alias cfg-yabai="zed ~/.config/yabai/yabairc "
+alias cfg-yabai="zed ~/.config/yabai/yabairc"
 alias cfg-zsh-theme="zed ~/.oh-my-zsh/custom/themes/primetimetran.zsh-theme"
 
 ## Android
@@ -68,7 +73,7 @@ alias adevice="adb -s adb-0B031FDD4000WF-E42dcm._adb-tls-connect._tcp. shell set
 # Dotfiles/Bare Repo
 # ─────────────────────────────────────────────
 dotrepo() {
-    git --git-dir="$HOME/.dotrepo" --work-tree="$HOME" "$@"
+  git --git-dir="$HOME/.dotrepo" --work-tree="$HOME" "$@"
 }
 
 alias dr="dotrepo "
@@ -87,7 +92,6 @@ alias dr-aa="dotrepo add -u"
 dr-a() {
     dr add "$@"
 }
-# dotrepo add -u .
 dr-au() {
     # -u (--update) → only update files Git already tracks
     # . → start from the current work tree location ($HOME in your dotfiles setup)
@@ -114,11 +118,6 @@ alias cons="conda env export > environment.yml"
 alias conin="conda install"
 alias conexmac="conda env export > environment-macos.yml"
 alias concref="conda create -f environment-"
-
-alias carb='cargo b'
-alias carc='cargo clean'
-alias carf='cargo fix --bin "setup_utility"'
-alias carr='cargo run --bin main'
 
 alias dkr-b="docker build ."
 alias dkr-cu="docker compose up"
@@ -189,10 +188,10 @@ alias ghost="lsof -i"
 alias g="google "
 alias pg="postgres"
 alias nuxi='npx nuxi '
-alias rl='exec zsh'
+alias rl='c && exec zsh'
 alias reload='exec zsh'
 alias tattach='tmux a'
-alias vs="zed ."
+alias vs="vscode ."
 alias z="zed ."
 
 alias his="history | cut -c 8-"
@@ -205,7 +204,7 @@ alias open-bb="/Applications/OpenBB\ Terminal/OpenBB\ Terminal"
 
 alias p='pnpm '
 alias pw='p why '
-alias pi='p install '
+# alias pi='p install '
 alias pu='p update '
 alias pr='p run '
 

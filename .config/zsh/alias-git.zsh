@@ -1,18 +1,63 @@
-# # --- Log Formatting (gl- prefix) ---
-# alias gl-graph="git log --oneline --graph --all"
-# alias gl-graph-with-date="git log --graph --all --format='%C(auto)%h%Creset %Cgreen%ad%Creset %s' --date=format:%y-%m-%d"
-# alias gl-graph-with-date-author="git log --graph --all --format='%C(auto)%h%Creset %Cgreen%ad%Creset %Cblue%an%Creset <%ae> %s' --date=format:%y-%m-%d"
-# alias gl-full-hash="git log --oneline --no-abbrev-commit"
-# # alias gl-show="git log --graph --pretty=format:'%h %s%n%b' -n 5"
+# ============================================================
+# Git Log
+# ============================================================
 
-# Implementation: Log with dynamic limit
-function gl-show() {
-    local limit=${1:-10}
-    git log --graph --pretty=format:'%h %s%n%b' -n "$limit"
+# Base
+function gl() {
+	git log --all --graph "$@"
 }
 
-alias gl-diff="git log -p"
-alias gl-stat="git log --stat"
+# ------------------------------------------------------------
+# Formatting
+# ------------------------------------------------------------
+
+function gl-short() {
+	gl --pretty=format:'%C(auto)%h%Creset %s%C(auto)%d%Creset' "$@"
+}
+
+function gl-date() {
+	gl --pretty=format:'%C(auto)%h%Creset %Cgreen%ad%Creset %s%C(auto)%d%Creset' \
+		--date=format:%y-%m-%d \
+		"$@"
+}
+
+function gl-date-author() {
+	gl --pretty=format:'%C(auto)%h%Creset %Cgreen%ad%Creset %Cblue%an%Creset <%C(yellow)%ae%Creset> %s%C(auto)%d%Creset' \
+		--date=format:%y-%m-%d \
+		"$@"
+}
+
+function gl-full-hash() {
+	gl --pretty=format:'%C(auto)%H%Creset %s%C(auto)%d%Creset' "$@"
+}
+
+# ------------------------------------------------------------
+# Log modes
+# ------------------------------------------------------------
+
+function gl-show() {
+	local limit=10
+
+	if [[ "$1" =~ ^[0-9]+$ ]]; then
+		limit=$1
+		shift
+	fi
+
+	gl-date --max-count="$limit" "$@"
+}
+
+function gl-stat() {
+	gl-short "$@" --stat
+}
+
+function gl-stat-full() {
+	gl-date-author "$@" --stat
+}
+
+function gl-diff() {
+	gl-date "$@" -p
+}
+
 
 # --- Branch Formatting (gb- prefix) ---
 gb() {
@@ -104,15 +149,29 @@ alias g-push-force="git push --force"
 
 alias gaa="g-add-all"
 alias gcm="gc-msg"
-alias g-amend="git commit --amend"
+# Amend
+alias g.amend="git commit --amend"
 
 alias gp="g-push"
 alias gpf="g-push-force"
 alias gpom="gp origin main"
 
+# Git diff (src diff) master to master
+alias gf-mm="git diff origin/master...master"
+# Git diff one line
+alias gf-mm="git log --oneline original/master..master"
+# Safe force push (only overwrites if there are no commits from other users)
+alias gsfp="git push origin master --force-with-lease"
+
 # --- Pointer Aliases (The "Defaults" or "Interface") ---
-alias gl="gl-graph"
 alias gs='git status'
+
+# Track a new upstream
+# git branch --set-upstream-to=origin/master master
+
+# Think of --force-with-lease as saying: "Overwrite the remote branch with my local changes only if nobody else has updated it in the meantime."
+# git push fork master --force-with-lease
+
 
 # Undo changes to a dir
 # git restore estate/persona.dev
@@ -184,3 +243,8 @@ alias gs='git status'
 # show file at commit at path in VSCode
 # git show ad328a10^:app/loi/crates/learn/public/docs/versions.json > /tmp/versions.json
 # code /tmp/versions.json
+
+# Rename remote
+#   "git remote rename origin fork"
+alias grr="git remote rename"
+alias gr-v="git remote -v"

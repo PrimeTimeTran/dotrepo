@@ -40,37 +40,11 @@ path_add "$ANDROID_HOME/platform-tools"
 path_add "$HOME/.pyenv/bin"
 path_add "$HOME/.lmstudio/bin"
 
-# export PATH="$HOME/bin:$PATH"
+# Add KB project bins to global namespace
+path_add "$HOME/kb/project/script/bin"
+path_add "$HOME/bin"
 
-OFFICIAL_RA_BIN="$HOME/.rustup/toolchains/nightly-2026-06-30-aarch64-apple-darwin/bin/rust-analyzer"
-# echo $OFFICIAL_RA_BIN
-CUSTOM_RA_BIN="$HOME/KB/project/app/rust-analyzer/target/release/rust-analyzer"
-# echo $CUSTOM_RA_BIN
-# $ ls -la "$OFFICIAL_RA_BIN"
-# $ ls -la "$CUSTOM_RA_BIN"
 
-# Install again
-# $ rustup component add rust-analyzer --toolchain nightly-2026-06-30-aarch64-apple-darwin
-
-function ra-ck() {
-    echo "Active binary path: $(which rust-analyzer)"
-    echo "Version info: $(rust-analyzer --version)"
-}
-function ra-official() {
-    mkdir -p "$HOME/bin"
-    ln -sf "$OFFICIAL_RA_BIN" "$HOME/bin/rust-analyzer"
-    hash -r
-    echo "Switched to OFFICIAL rust-analyzer."
-    ra-ck
-}
-
-function ra-custom() {
-    mkdir -p "$HOME/bin"
-    ln -sf "$CUSTOM_RA_BIN" "$HOME/bin/rust-analyzer"
-    hash -r
-    echo "Switched to CUSTOM rust-analyzer."
-    ra-ck
-}
 # 5. Compiler Flags
 # export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 # export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"

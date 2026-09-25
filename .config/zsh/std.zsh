@@ -1,5 +1,172 @@
 echo "04. 🎨 std lib loading..."
 # ============================================================
+# Bash Function Documentation
+# ============================================================
+foo-args() {
+    local first_arg="$1"
+    local total_args="$#"
+    local -a all_args=("$@")
+
+    echo_kv "Total Args" "$total_args"
+    echo_kv "First Arg" "$first_arg"
+
+    echo_muted "Arguments:"
+
+    local -a TABLE_WIDTHS=(8 40)
+
+    table_header "#" "Value"
+    table_separator
+
+    local i=1
+    for item in "${all_args[@]}"; do
+        table_row "$i" "$item"
+        ((i++))
+    done
+
+    table_end
+}
+foo-conditionals() {
+  # "use argument 1, unless it is unset or empty; otherwise use 10."
+	local value="${1:-10}"
+
+	# if / elif / else
+	if [ "$value" -gt 10 ]; then
+		echo "greater than 10"
+	elif [ "$value" -eq 10 ]; then
+		echo "equal to 10"
+	else
+		echo "less than 10"
+	fi
+
+	# String comparison
+	if [ "$value" = "10" ]; then
+		echo "string is exactly 10"
+	fi
+
+	# Negation
+	if [ "$value" != "0" ]; then
+		echo "value is not zero"
+	fi
+
+	# File checks
+	if [ -f "$HOME/.zshrc" ]; then
+		echo "file exists"
+	fi
+
+	if [ -d "$HOME" ]; then
+		echo "directory exists"
+	fi
+
+	# Command success
+	if command -v git >/dev/null 2>&1; then
+		echo "git is installed"
+	fi
+
+	# Logical AND / OR
+	if [ "$value" -gt 0 ] && [ "$value" -lt 100 ]; then
+		echo "between 1 and 99"
+	fi
+
+	if [ "$value" -eq 0 ] || [ "$value" -lt 0 ]; then
+		echo "zero or negative"
+	fi
+}
+foo-conditionals-zsh() {
+	local value="${1:-10}"
+
+	# if / elif / else
+	if [[ "$value" -gt 10 ]]; then
+		echo "greater than 10"
+	elif [[ "$value" -eq 10 ]]; then
+		echo "equal to 10"
+	else
+		echo "less than 10"
+	fi
+
+	# String comparison
+	if [[ "$value" == "10" ]]; then
+		echo "string is exactly 10"
+	fi
+
+	# Negation
+	if [[ "$value" != "0" ]]; then
+		echo "value is not zero"
+	fi
+
+	# File checks
+	if [[ -f "$HOME/.zshrc" ]]; then
+		echo "Zsh config file exists"
+	fi
+
+	if [[ -d "$HOME" ]]; then
+		echo "directory exists"
+	fi
+
+	# Command success
+	if command -v git >/dev/null 2>&1; then
+		echo "git is installed"
+	fi
+
+	# Logical AND / OR
+	if [[ "$value" -gt 0 && "$value" -lt 100 ]]; then
+		echo "between 1 and 99"
+	fi
+
+	if [[ "$value" -eq 0 || "$value" -lt 0 ]]; then
+		echo "zero or negative"
+	fi
+}
+foo-repeat() {
+    if [ -z "$1" ]; then
+        echo_error "Usage: foo-repeat <number>"
+        return 1
+    fi
+
+    local n="$1"
+
+    echo_kv "Iterations" "$n"
+    echo_muted "Running:"
+
+    local -a TABLE_WIDTHS=(10 20)
+
+    table_header "#" "Status"
+    table_separator
+
+    for ((i=1; i<=n; i++)); do
+        table_row "$i" "Iteration $i of $n"
+    done
+
+    table_end
+}
+foo-pipe() {
+    if [ -z "$1" ]; then
+        echo_error "Usage: foo-pipe <string_with_pipes>"
+        return 1
+    fi
+
+    local input="$1"
+    local -a items=("${(@s/|/)input}")
+
+    echo_kv "Input" "$input"
+    echo_kv "Items" "${#items[@]}"
+
+    echo_muted "Processed pipe-delimited list:"
+
+    local -a TABLE_WIDTHS=(8 40)
+
+    table_header "#" "Value"
+    table_separator
+
+    local i=1
+    for item in "${items[@]}"; do
+        table_row "$i" "$item"
+        ((i++))
+    done
+
+    table_end
+}
+
+# ============================================================
 # Color Formatting
 # ============================================================
 echo_info() {
@@ -47,21 +214,18 @@ table_section() {
     echo_title "$1"
 }
 table_cell() {
-    local value="$1"
-    local width="$2"
-    local align="${3:-left}"
-    local color="${4:-}"
-
-    case "$align" in
-        left)
-            printf "%s%-${width}s%s" \
-                "$color" "$value" "$RESET"
-            ;;
-        right)
-            printf "%s%${width}s%s" \
-                "$color" "$value" "$RESET"
-            ;;
-    esac
+	local value="$1"
+	local width="$2"
+	local align="$3"
+	local color="$4"
+	case "$align" in
+		left)
+			printf "%s%-*s%s" "$color" "$width" "$value" "$RESET"
+			;;
+		right)
+			printf "%s%*s%s" "$color" "$width" "$value" "$RESET"
+			;;
+	esac
 }
 table_header() {
     local -a columns=("$@")
@@ -75,15 +239,23 @@ table_header() {
     printf "\n"
 }
 table_row() {
-    local -a columns=("$@")
+	local -a columns=("$@")
 
-    table_cell "${columns[1]}" "${TABLE_WIDTHS[1]}" left "$TABLE_KEY_COLOR"
+	table_cell \
+		"${columns[1]}" \
+		"${TABLE_WIDTHS[1]}" \
+		left \
+		"$TABLE_KEY_COLOR"
 
-    for i in {2..$#columns}; do
-        table_cell "${columns[$i]}" "${TABLE_WIDTHS[$i]}" right "$TABLE_VALUE_COLOR"
-    done
+	for ((i = 2; i <= $#columns; i++)); do
+		table_cell \
+			"${columns[$i]}" \
+			"${TABLE_WIDTHS[$i]}" \
+			right \
+			"$TABLE_VALUE_COLOR"
+	done
 
-    printf "${RESET}\n"
+	printf "\n"
 }
 table_separator() {
     local total=0
@@ -205,82 +377,6 @@ foo-table2() {
 
     table_row "Total" "" "3070"
     table_summary "Match Rate" "1.93%" 3
-
-    table_end
-}
-
-# ============================================================
-# Bash Function Documentation
-# ============================================================
-foo-args() {
-    local first_arg="$1"
-    local total_args="$#"
-    local -a all_args=("$@")
-
-    echo_kv "Total Args" "$total_args"
-    echo_kv "First Arg" "$first_arg"
-
-    echo_muted "Arguments:"
-
-    local -a TABLE_WIDTHS=(8 40)
-
-    table_header "#" "Value"
-    table_separator
-
-    local i=1
-    for item in "${all_args[@]}"; do
-        table_row "$i" "$item"
-        ((i++))
-    done
-
-    table_end
-}
-foo-repeat() {
-    if [ -z "$1" ]; then
-        echo_error "Usage: foo-repeat <number>"
-        return 1
-    fi
-
-    local n="$1"
-
-    echo_kv "Iterations" "$n"
-    echo_muted "Running:"
-
-    local -a TABLE_WIDTHS=(10 20)
-
-    table_header "#" "Status"
-    table_separator
-
-    for ((i=1; i<=n; i++)); do
-        table_row "$i" "Iteration $i of $n"
-    done
-
-    table_end
-}
-foo-pipe() {
-    if [ -z "$1" ]; then
-        echo_error "Usage: foo-pipe <string_with_pipes>"
-        return 1
-    fi
-
-    local input="$1"
-    local -a items=("${(@s/|/)input}")
-
-    echo_kv "Input" "$input"
-    echo_kv "Items" "${#items[@]}"
-
-    echo_muted "Processed pipe-delimited list:"
-
-    local -a TABLE_WIDTHS=(8 40)
-
-    table_header "#" "Value"
-    table_separator
-
-    local i=1
-    for item in "${items[@]}"; do
-        table_row "$i" "$item"
-        ((i++))
-    done
 
     table_end
 }
@@ -471,6 +567,353 @@ _foo_manual_parser() {
         '-t+[File extension]:extension:(.md .svg .json .ts .tsx .rs .py)'
 }
 compdef _foo_manual_parser foo-manual-parser
+
+# foo-media-parser -s bitrate -o desc -l 10
+foo-media-parser() {
+    local directories="."
+    local extensions=".mp4|.avi|.mkv"
+    local sort_field="file"
+    local sort_order="asc"
+    local limit=10
+
+    local -a EXCLUDED_DIRS=(
+        node_modules
+        .git
+        .next
+        .nuxt
+        dist
+        .venv
+        build
+        target
+    )
+
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            -d)
+                directories="$2"
+                shift 2
+                ;;
+
+            -t)
+                extensions="$2"
+                shift 2
+                ;;
+
+            -s|--sort)
+                sort_field="$2"
+                shift 2
+                ;;
+
+            -o|--order)
+                sort_order="${2:l}"
+
+                if [[ "$sort_order" != "asc" && "$sort_order" != "desc" ]]; then
+                    echo_error "Sort order must be 'asc' or 'desc'"
+                    return 1
+                fi
+
+                shift 2
+                ;;
+
+            -l|--limit)
+                limit="$2"
+
+                if ! [[ "$limit" =~ '^[0-9]+$' ]]; then
+                    echo_error "Limit must be a number"
+                    return 1
+                fi
+
+                shift 2
+                ;;
+
+            *)
+                echo_error "Unknown flag: $1"
+                return 1
+                ;;
+        esac
+    done
+
+    local -a targets=("${(@s/|/)directories}")
+    local -a types=("${(@s/|/)extensions}")
+
+    # ─────────────────────────────────────────
+    # SORT CONFIG
+    # ─────────────────────────────────────────
+
+    local sort_column
+    local sort_numeric=0
+
+    case "$sort_field" in
+        file)
+            sort_column=1
+            ;;
+
+        resolution)
+            sort_column=2
+            ;;
+
+        aspect)
+            sort_column=3
+            ;;
+
+        fps)
+            sort_column=4
+            sort_numeric=1
+            ;;
+
+        codec)
+            sort_column=5
+            ;;
+
+        bitrate)
+            sort_column=6
+            sort_numeric=1
+            ;;
+
+        duration)
+            sort_column=7
+            sort_numeric=1
+            ;;
+
+        size)
+            sort_column=8
+            sort_numeric=1
+            ;;
+
+        *)
+            echo_error "Unknown sort field: $sort_field"
+            echo "Valid fields: file, resolution, aspect, fps, codec, bitrate, duration, size"
+            return 1
+            ;;
+    esac
+
+    # ─────────────────────────────────────────
+    # TABLE CONFIG
+    # ─────────────────────────────────────────
+
+    # local -a TABLE_WIDTHS=(35 12 12 10 10 14 12 12)
+    local -a TABLE_WIDTHS=(30 12 8 8 10 14 12 10)
+
+    # ─────────────────────────────────────────
+    # INPUT / CONFIG
+    # ─────────────────────────────────────────
+
+    table_section "Params:"
+    table_kv "Directories" "${#targets[@]}"
+    table_kv "Extensions" "$extensions"
+    table_kv "Sort" "$sort_field ($sort_order)"
+    table_kv "Limit" "${limit:-none}"
+
+    # ─────────────────────────────────────────
+    # DATA
+    # ─────────────────────────────────────────
+
+    local -a rows=()
+    local file
+
+    for dir in "${targets[@]}"; do
+        if [[ ! -d "$dir" ]]; then
+          echo_warning "Directory not found: $dir"
+          continue
+        fi
+
+        local find_prune=()
+
+        for excluded in "${EXCLUDED_DIRS[@]}"; do
+          find_prune+=(-name "$excluded" -prune -o)
+        done
+
+        while IFS= read -r file; do
+            local ext="${file##*.}"
+            ext=".${ext:l}"
+
+            local valid=0
+
+            for type in "${types[@]}"; do
+              [[ "$ext" == "$type" ]] && valid=1
+            done
+
+            (( valid )) || continue
+
+            # ─────────────────────────────────
+            # FFPROBE
+            # ─────────────────────────────────
+
+            local probe
+
+            probe=$(ffprobe \
+              -v error \
+              -select_streams v:0 \
+              -show_entries \
+                  stream=width,height,display_aspect_ratio,r_frame_rate,codec_name,bit_rate,duration \
+              -of csv=p=0 \
+              "$file" 2>/dev/null
+            )
+
+            if [[ -z "$probe" ]]; then
+              echo_warning "Unable to read: $file"
+              continue
+            fi
+
+            local codec width height aspect fps bitrate duration
+
+            IFS=',' read -r \
+              codec \
+              width \
+              height \
+              aspect \
+              fps \
+              bitrate \
+              duration <<< "$probe"
+
+            # ─────────────────────────────────
+            # RAW SORT VALUES
+            # ─────────────────────────────────
+
+            local fps_sort=0
+            local bitrate_sort=0
+            local duration_sort=0
+            local size_sort=0
+
+            if [[ -n "$fps" ]]; then
+              fps_sort=$(awk -v fps="$fps" '
+                BEGIN {
+                  split(fps, a, "/")
+                  if (a[2] > 0)
+                    printf "%.6f", a[1] / a[2]
+                  else
+                    print 0
+                }
+              ')
+            fi
+
+            [[ -n "$bitrate" ]] && bitrate_sort="$bitrate"
+            [[ -n "$duration" ]] && duration_sort="$duration"
+
+            # Bytes, for accurate size sorting
+            size_sort=$(stat -f "%z" "$file" 2>/dev/null || echo 0)
+
+            # ─────────────────────────────────
+            # DISPLAY VALUES
+            # ─────────────────────────────────
+
+            local resolution="${width}x${height}"
+
+            local fps_display
+            fps_display=$(awk -v fps="$fps" '
+              BEGIN {
+                split(fps, a, "/")
+                if (a[2] > 0)
+                  printf "%.2f", a[1] / a[2]
+                else
+                  print fps
+              }
+            ')
+
+            local bitrate_display="N/A"
+
+            if [[ "$bitrate" != "" && "$bitrate" != "0" ]]; then
+                bitrate_display=$(awk -v b="$bitrate" '
+                    BEGIN {
+                        printf "%.2f Mbps", b / 1000000
+                    }
+                ')
+            fi
+
+            local duration_display="N/A"
+
+            if [[ -n "$duration" ]]; then
+              duration_display=$(awk -v d="$duration" '
+                BEGIN {
+                    h = int(d / 3600)
+                    m = int((d % 3600) / 60)
+                    s = int(d % 60)
+                    printf "%02d:%02d:%02d", h, m, s
+                }
+              ')
+            fi
+
+            local size
+            size=$(du -h "$file" | cut -f1)
+            local filename="${file:t}"
+            rows+=(
+              "$filename|$resolution|$aspect|$fps_display|$codec|$bitrate_display|$duration_display|$size|$fps_sort|$bitrate_sort|$duration_sort|$size_sort"
+            )
+
+        done < <(
+          find "$dir" \
+            "${find_prune[@]}" \
+            -type f \
+            \( \
+                -iname "*.mp4" \
+                -o -iname "*.avi" \
+                -o -iname "*.mkv" \
+            \) \
+            -print
+        )
+    done
+
+    # ─────────────────────────────────────────
+    # SORT
+    # ─────────────────────────────────────────
+
+    local sort_raw_column
+
+    case "$sort_field" in
+      file)       sort_raw_column=1 ;;
+      resolution) sort_raw_column=2 ;;
+      aspect)     sort_raw_column=3 ;;
+      fps)        sort_raw_column=9 ;;
+      codec)      sort_raw_column=5 ;;
+      bitrate)    sort_raw_column=10 ;;
+      duration)   sort_raw_column=11 ;;
+      size)       sort_raw_column=12 ;;
+    esac
+
+    local sort_args=(
+        -t $'\t'
+        "-k${sort_raw_column},${sort_raw_column}"
+    )
+
+    if (( sort_numeric )); then
+        sort_args+=(-n)
+    fi
+
+    if [[ "$sort_order" == "desc" ]]; then
+        sort_args+=(-r)
+    fi
+
+    rows=("${(@f)$(printf '%s\n' "${rows[@]}" | sort "${sort_args[@]}")}")
+
+    # ─────────────────────────────────────────
+    # LIMIT
+    # ─────────────────────────────────────────
+
+    if (( limit > 0 )); then
+        rows=("${(@f)$(printf '%s\n' "${rows[@]}" | head -n "$limit")}")
+    fi
+
+    # ─────────────────────────────────────────
+    # OUTPUT
+    # ─────────────────────────────────────────
+    table_section "Results:"
+    table_header \
+     	"File" \
+     	"Resolution" \
+     	"Aspect" \
+     	"FPS" \
+     	"Codec" \
+     	"Bitrate" \
+     	"Duration" \
+     	"Size"
+    local row
+    for row in "${rows[@]}"; do
+      local -a fields
+      IFS='|' read -r -A fields <<< "$row"
+      table_row "${(@)fields[1,8]}"
+    done
+    table_end
+}
 
 # Troubleshooting FPath
 ## Prints the plugins

@@ -1,4 +1,3 @@
-
 echo "01. 🧧 env loading..."
 
 export ZSH="$HOME/.oh-my-zsh"

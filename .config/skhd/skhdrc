@@ -1,9 +1,16 @@
+# Annoying thing to ensure this works
+# f1 : afplay /System/Library/Sounds/Tink.aiff
+
 # Yabai
 ctrl + fn - p : yabai -m space --layout stack
 ctrl + fn - b : yabai -m space --layout bsp
 
+hyper - a : yabai -m window --toggle zoom-parent
+hyper - m : yabai -m window --toggle zoom-parent
+
 ### Stop/start/restart yabai
 
+# ctrl + alt - r : yabai --stop-service
 ctrl + alt - r : yabai --restart-service
 ctrl + alt - q : yabai --stop-service
 ctrl + alt - s : yabai --start-service
