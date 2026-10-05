@@ -1,0 +1,1329 @@
+// [Rust Analyzer]
+// https://rust-analyzer.github.io/book/configuration.html?highlight=ignore#cargo.allTargets
+// https://github.com/egorovsa/vscode-folder-colorizer/blob/main/src/panel/controlPanel.ts
+// https://github.com/axmz/vscode-color-assist/blob/master/src/extension.ts
+// ## [Smart TOC]: Pretty good Outline panel
+// https://marketplace.visualstudio.com/items?itemName=FallenMax.smart-toc&ssr=false#review-details
+// ## [Foam]: Smart Folders?
+// https://marketplace.visualstudio.com/items?itemName=FallenMax.smart-toc&ssr=false#review-details
+{
+  "rust-analyzer.linkedProjects": [
+    "/Users/future/kb/project/Cargo.toml"
+  ],
+  "rust-analyzer.cargo.features": [
+    "native",
+    // "web"
+  ],
+  // "rust-analyzer.cargo.buildScripts.enable": true,
+  "rust-analyzer.cargo.target": "aarch64-apple-darwin",
+  // "rust-analyzer.cargo.target": "wasm32-unknown-unknown",
+  "rust-analyzer.cargo.targetDir": true,
+  // "rust-analyzer.checkOnSave": false, // Fixes false positives in the VSCode problems tab
+  // "rust-analyzer.checkOnSave": true,
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
+  "rust-analyzer.inlayHints.typeHints.enable": true,
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.restartServerOnConfigChange": true,
+  "[rust]": {
+    // "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+  },
+  "editor.accessibilitySupport": "off",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "never",
+  },
+  // =========================
+  // EDITOR CORE
+  // =========================
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.detectIndentation": true,
+  "editor.fontFamily": "JetBrains Mono, Fira Code, Cascadia Code, monospace",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.glyphMargin": false, // Disables the structural margin used for debug breakpoints
+  "editor.gotoLocation.multipleDefinitions": "peek",
+  "editor.guides.bracketPairs": true,
+  "editor.inlayHints.enabled": "on",
+  "editor.inlineSuggest.enabled": false,
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "editor.lineHeight": 18,
+  "editor.lineNumbers": "relative",
+  "editor.linkedEditing": true,
+  "editor.multiCursorModifier": "alt",
+  "editor.quickSuggestions": {
+    "strings": "on",
+  },
+  "editor.quickSuggestionsDelay": 60,
+  "editor.renderLineHighlight": "none",
+  "editor.suggest.preview": true,
+  "editor.unfoldOnClickAfterEndOfLine": false,
+  "editor.unicodeHighlight.allowedCharacters": {},
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.unusualLineTerminators": "auto",
+  "editor.insertSpaces": false,
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "none",
+  "[cpp]": {
+    "editor.semanticHighlighting.enabled": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.wordBasedSuggestions": "off",
+  },
+  "[cpp][dart]": {
+    "editor.wordBasedSuggestions": "off",
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[dart]": {
+    "editor.codeActionsOnSave": {
+      "quickfix.insertSemicolon": "always",
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit",
+      "source.sortMembers": "explicit",
+    },
+    "editor.formatOnType": true,
+    "editor.rulers": [
+      80
+    ],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "off",
+    "editor.wordBasedSuggestions": "off",
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+  },
+  "[markdown]": {
+    // his guy suggests well well
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "always",
+      "source.organizeImports.ruff": "always",
+    },
+  },
+  "[snippets]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+  },
+  "[tailwindcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "stretchySpaces.targetIndentation": 1,
+  "stretchySpaces.includedLanguages": [
+    "zig"
+  ],
+  "[zig]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "accessibility.signals.clear": {
+    "sound": "off",
+  },
+  "accessibility.signals.diffLineDeleted": {
+    "sound": "off",
+  },
+  "accessibility.signals.diffLineInserted": {
+    "sound": "off",
+  },
+  "accessibility.signals.diffLineModified": {
+    "sound": "off",
+  },
+  "accessibility.signals.lineHasBreakpoint": {
+    "sound": "off",
+  },
+  "accessibility.signals.lineHasError": {
+    "sound": "off",
+  },
+  "accessibility.signals.lineHasFoldedArea": {
+    "sound": "off",
+  },
+  "accessibility.signals.lineHasInlineSuggestion": {
+    "sound": "off",
+  },
+  "accessibility.signals.noInlayHints": {
+    "sound": "off",
+  },
+  "accessibility.signals.notebookCellCompleted": {
+    "sound": "off",
+  },
+  "accessibility.signals.notebookCellFailed": {
+    "sound": "off",
+  },
+  "accessibility.signals.onDebugBreak": {
+    "sound": "off",
+  },
+  "accessibility.signals.progress": {
+    "sound": "off",
+  },
+  "accessibility.signals.taskCompleted": {
+    "sound": "off",
+  },
+  "accessibility.signals.taskFailed": {
+    "sound": "off",
+  },
+  "accessibility.signals.terminalCommandFailed": {
+    "sound": "off",
+  },
+  "accessibility.signals.terminalQuickFix": {
+    "sound": "off",
+  },
+  "application.shellEnvironmentResolutionTimeout": 20,
+  "better-comments.fullHighlight": false,
+  "better-comments.highlightPlainText": false,
+  "better-comments.multilineComments": true,
+  "better-comments.tags": [
+    // "better-comments.tags": [
+    //     {
+    //         "tag": "//",
+    //         "color": "#6272a4",
+    //         "strikethrough": true,
+    //         "underline": false,
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "!",
+    //         "color": "#FF2D00",
+    //         "strikethrough": false,
+    //         "underline": false,
+    //         "backgroundColor": "transparent",
+    //         "bold": false,
+    //         "italic": false,
+    //     },
+    //     {
+    //         "tag": "?",
+    //         "color": "#3498DB",
+    //         "strikethrough": false,
+    //         "underline": false,
+    //         "backgroundColor": "transparent",
+    //         "bold": false,
+    //         "italic": false,
+    //     },
+    //     {
+    //         "tag": "*",
+    //         "color": "#98C379",
+    //         "strikethrough": false,
+    //         "underline": false,
+    //         "backgroundColor": "transparent",
+    //         "bold": false,
+    //         "italic": false,
+    //     },
+    //     {
+    //         "tag": "[ ]",
+    //         "color": "#ffc66d",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "- [ ]",
+    //         "color": "#ffc66d",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "BUG:",
+    //         "color": "#ff0000",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "EXPLANATION:",
+    //         "color": "#93A1CD",
+    //         "underline": false,
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "-",
+    //         "color": "#6272a4",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "TODO:",
+    //         "color": "#ffc66d",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "FIXME:",
+    //         "color": "#ff6e6e",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "HACK:",
+    //         "color": "#ffffa5",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "NOTE:",
+    //         "color": "#94f0ff",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "INFO:",
+    //         "color": "#c798e6",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "IDEA:",
+    //         "color": "#80ffce",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "DEBUG:",
+    //         "color": "#ff2975",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "WHY",
+    //         "color": "#ff9580",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "OPTION",
+    //         "color": "#ff9580",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "WHAT THIS DO:",
+    //         "color": "#FBBF24",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "CONTEXT",
+    //         "color": "#D8FF80",
+    //         "backgroundColor": "transparent",
+    //         // "underline": true,
+    //     },
+    //     {
+    //         "tag": ">",
+    //         "color": "#D8FF80",
+    //         "backgroundColor": "transparent",
+    //         "underline": true,
+    //     },
+    //     {
+    //         "tag": "cases",
+    //         "color": "#1F2937",
+    //         "backgroundColor": "#B9D36A",
+    //     },
+    //     {
+    //         "tag": "case",
+    //         "color": "#D8FF80",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "means",
+    //         "color": "#A780FF",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "behavior",
+    //         "color": "#A780FF",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "purpose",
+    //         "color": "#A780FF",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "core idea",
+    //         "color": "#A780FF",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "steps",
+    //         "color": "#A780FF",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "✔",
+    //         "color": "#62A464",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "✖",
+    //         "color": "#B5421C",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "CRITICAL:",
+    //         "color": "#FFFFFF",
+    //         "backgroundColor": "#181A89",
+    //     },
+    //     {
+    //         "tag": "REVIEW:",
+    //         "color": "#A5B4FC",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "OPTIMIZE:",
+    //         "color": "#4ADE80",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "SECTION:",
+    //         "color": "#f1a18e",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "NEXT STEP:",
+    //         "color": "#ba6645",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "SECURITY:",
+    //         "color": "#cff028",
+    //         "backgroundColor": "#44475a",
+    //     },
+    //     {
+    //         "tag": "PERFORMANCE:",
+    //         "color": "#d7ffad",
+    //         "backgroundColor": "transparent",
+    //     },
+    //     {
+    //         "tag": "DEPRECATED:",
+    //         "color": "#8b8098",
+    //         "strikethrough": true,
+    //         "backgroundColor": "#44475a",
+    //     },
+    //     {
+    //         "tag": "API:",
+    //         "color": "#c798e6",
+    //         "backgroundColor": "transparent",
+    //     },
+    // ],
+    // TASK MANAGEMENT
+    {
+      "backgroundColor": "transparent",
+      "color": "#FFD580",
+      "tag": "TODO:",
+    },
+    {
+      "backgroundColor": "transparent",
+      "color": "#FFB347",
+      "tag": "NEXT STEP:",
+    },
+    // QUALITY & SECURITY
+    {
+      "backgroundColor": "transparent",
+      "color": "#FF5555",
+      "tag": "BUG:",
+    },
+    {
+      "backgroundColor": "#4B0082",
+      "color": "#FFFFFF",
+      "tag": "CRITICAL:",
+    },
+    // DOCUMENTATION & REASONING
+    {
+      "backgroundColor": "transparent",
+      "color": "#FFB86C",
+      "tag": "WHY",
+    },
+    {
+      "backgroundColor": "transparent",
+      "color": "#FFB86C",
+      "tag": "OPTION",
+    },
+    {
+      "backgroundColor": "transparent",
+      "color": "#C8A2C8",
+      "tag": "core idea",
+    },
+  ],
+  "breadcrumbs.filePath": "on",
+  "breadcrumbs.showClasses": false,
+  "breadcrumbs.showFields": false,
+  "breadcrumbs.showMethods": false,
+  "breadcrumbs.showProperties": false,
+  "chat.editing.confirmEditRequestRemoval": false,
+  "chat.viewSessions.orientation": "stacked",
+  "cSpell.enabledNotifications": {
+    "Average Word Length too Long": false,
+    "Lines too Long": false,
+    "Maximum Word Length Exceeded": false,
+  },
+  "cSpell.ignorePaths": [
+    ".git/objects",
+    ".vscode-insiders",
+    ".vscode",
+    "Cargo.toml",
+    "package-lock.json",
+    "package.json",
+    "vscode-extension",
+  ],
+  "cSpell.userWords": [
+    "Analayzer",
+    "axuielement",
+    "callsign",
+    "CGEVENT",
+    "Civara",
+    "codeaction",
+    "codegen",
+    "commonmark",
+    "comptime",
+    "corge",
+    "dijkstras",
+    "Dijkstras",
+    "dryrun",
+    "Eguis",
+    "evals",
+    "Eveline",
+    "Fenwick",
+    "foos",
+    "frontmost",
+    "garply",
+    "gguf",
+    "GGUF",
+    "grault",
+    "impls",
+    "inodes",
+    "IOHID",
+    "Karabiner",
+    "Keymap",
+    "Klass",
+    "Kruskal's",
+    "layouter",
+    "leaderkeys",
+    "leetcode",
+    "lifetimed",
+    "logg",
+    "minlen",
+    "Modelfile",
+    "nomicon",
+    "notempty",
+    "Noul",
+    "nsapp",
+    "nums",
+    "ollama",
+    "oneshot",
+    "pixmap",
+    "plugh",
+    "Pomodoro",
+    "previewable",
+    "primetimetran",
+    "Qwen",
+    "renderable",
+    "resvg",
+    "rmcp",
+    "RPIT",
+    "rustflags",
+    "Rustnomicon",
+    "rustrover",
+    "SDLC",
+    "serde",
+    "singleref",
+    "swiftc",
+    "tauri",
+    "traitable",
+    "TYPESAFE",
+    "Typestate",
+    "usize",
+    "usvg",
+    "venv",
+    "Warshall",
+    "whiteboarding",
+    "wikilink",
+    "xtask",
+    "xyzzy"
+  ],
+  // ============================================================================
+  // Root Cause Analysis: Fault Attribution & Building a Bulletproof Path Resolver
+  // ============================================================================
+  //
+  // WHOSE FAULT IS IT?
+  // It’s a shared failure across three distinct layers:
+  // 1. Cargo: Emits ambiguous, context-dependent relative paths instead of absolute
+  //    URIs or fully qualified diagnostic footprints.
+  // 2. VS Code Core: Relies on rigid regex matching for terminal text streams without
+  //    a built-in fallback heuristic or workspace-relative path normalization pass.
+  // 3. The Extension Ecosystem: Naively concatenates variables (`${workspaceFolder}`)
+  //    without validating whether the resulting URI actually resolves to a real inode
+  //    on disk, leading to silent failures or double-nested paths.
+  //
+  // HOW TO BUILD A BULLETPROOF SYSTEM (IDE / Terminal Link Engine):
+  // Your instinct is spot on. Instead of blindly gluing strings together, a truly
+  // resilient path resolution engine should implement a defensive lookup strategy:
+  //
+  // 1. Extraction & Normalization:
+  //    - Parse the captured string from the CLI output.
+  //    - Strip out diagnostic artifacts (leading arrows, spacing, column/row suffixes).
+  //
+  // 2. Multi-Tier Path Resolution (The Recursive / Heuristic Fallback):
+  //    - Tier 1 (Direct Match): Test if the path exists as-is relative to the CWD.
+  //    - Tier 2 (Workspace Anchor): Test against the absolute workspace root.
+  //    - Tier 3 (Recursive Suffix Clipping - Your Idea): If the file doesn't exist,
+  //      start stripping leading path segments one by one (e.g., dropping `crates/learn/`)
+  //      and search outward or walk up the directory tree from the CWD until a
+  //      matching filename and relative suffix is found on disk.
+  //
+  // 3. Validation Guard:
+  //    - Never emit a `vscode://file/...` URI blindly. Always verify `fs::metadata`
+  //      on the target path *before* letting the editor attempt navigation. If validation
+  //      fails, fall back to a fuzzy workspace symbol search rather than throwing a dead link.
+  // ============================================================================
+  // "terminalLinks.matchers": [
+  //   {
+  //     "regex": "(?:[:\\s]+)([a-zA-Z0-9_\\-./]+\\.rs):(\\d+):(\\d+)",
+  //     "uri": "vscode://file${workspaceFolder}/$1:$2:$3",
+  //   },
+  // ],
+  // "editor.codeLens": true,
+  // "debug.internalConsoleOptions": "neverOpen",
+  "debug.internalConsoleOptions": "neverOpen",
+  "debug.onTaskErrors": "debugAnyway",
+  // "task.autoDetect": "on",
+  // "terminal.integrated.defaultLocation": "view",
+  "diffEditor.codeLens": true,
+  "diffEditor.experimental.showEmptyDecorations": true,
+  "diffEditor.experimental.showMoves": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderGutterMenu": false,
+  "diffEditor.renderIndicators": false,
+  "diffEditor.renderSideBySide": true,
+  "diffEditor.wordWrap": "off",
+  "explorer.autoRevealExclude": {
+    "**/bower_components": false,
+    "**/node_modules": false,
+  },
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmPasteNative": false,
+  "extensions.confirmedUriHandlerExtensionIds": [
+    "ms-dotnettools.dotnet-interactive-vscode",
+    "ms-dotnettools.vscode-dotnet-pack",
+  ],
+  "files.associations": {
+    ".js": "javascript",
+    "*.css": "tailwindcss",
+    "*.json": "jsonc",
+    "*.jsx": "javascriptreact",
+    "*.md": "markdown",
+    "*.ts": "typescript",
+    "*.tsx": "typescriptreact",
+    "*.py": "python",
+  },
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 500,
+  "files.insertFinalNewline": true,
+  // Need a popup option to enable/disable this.
+  // It's useful, but not all the time.
+  "git-graph.commitDetailsView.location": "Docked to Bottom",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  // "git-blame.branchView.maxCommitCount": 50,
+  "git.detectSubmodules": false,
+  "git.enableSmartCommit": true,
+  "git.ignoreRebaseWarning": true,
+  "git.openRepositoryInParentFolders": "never",
+  "git.showCommitInput": false,
+  "git.showReferenceDetails": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.codeLens.enabled": false,
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": true,
+    "plaintext": false,
+    "scminput": false,
+  },
+  // "gitlens.blame.format": "${message|5?} ${agoOrDate|14-}",
+  "gitlens.gitCommands.search.showResultsInSideBar": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.launchpad.indicator.enabled": false,
+  "gitlens.views.scm.grouped.views": {
+    "branches": true,
+    "commits": true,
+    "contributors": true,
+    "fileHistory": false,
+    "launchpad": false,
+    "remotes": true,
+    "repositories": true,
+    "searchAndCompare": true,
+    "stashes": true,
+    "tags": true,
+    "worktrees": true,
+  },
+  "gitlens.views.searchAndCompare.files.layout": "tree",
+  "http.systemCertificatesNode": true,
+  "js/ts.experimental.useTsgo": false,
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "js/ts.tsserver.log": "verbose",
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+  "json.format.enable": true,
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "**/.estate/anchors.json"
+      ],
+      "url": "file:///Users/future/.estate/schemas/anchors.schema.json",
+    },
+    {
+      "fileMatch": [
+        "**/keymap.json"
+      ],
+      "url": "file:///Users/future/.config/zed/schemas/keymap.schema.json",
+    },
+    {
+      "fileMatch": [
+        "**/test.json"
+      ],
+      "url": "file:///Users/future/.config/schemas/test.schema.json",
+    },
+  ],
+  "liveServer.settings.donotShowInfoMsg": true,
+  "markdown.validate.referenceLinks.enabled": "ignore",
+  // "markdown-pdf.displayHeaderFooter": true,
+  // "markdown-pdf.styles": [
+  //     "/Users/future/Documents/work/_Main/Writing/assets/styles.css",
+  // ],
+  // "markdown-preview-enhanced.enableScriptExecution": true,
+  // "markdown-preview-enhanced.mathRenderingOption": "MathJax",
+  // "markdown-preview-enhanced.previewColorScheme": "systemColorScheme",
+  // "markdown.extension.math.enabled": false,
+  // "markdown.extension.toc.updateOnSave": true,
+  "mdb.excludeFromPlaygroundsSearch": [
+    "**/.*",
+    "**/_output/**",
+    "**/bower_components/**",
+    "**/build/**",
+    "**/dist/**",
+    "**/out/**",
+    "**/output/**",
+    "**/release/**",
+    "**/releases/**",
+    "**/static/**",
+    "**/target/**",
+    "**/third_party/**",
+    "**/vendor/**",
+  ],
+  "mdb.mcp.server": "prompt",
+  "multiCommand.commands": [
+    {
+      "command": "miniZen.toggle",
+      "sequence": [
+        "workbench.action.toggleSidebarVisibility",
+        "workbench.action.toggleActivityBarVisibility",
+        "workbench.action.toggleStatusBarVisibility",
+        "editor.action.toggleMinimap",
+        "editor.lineNumbers",
+      ],
+    },
+  ],
+  "notebook.defaultFormatter": "esbenp.prettier-vscode",
+  // "outline.showArrays": true,
+  "outline.problems.badges": true,
+  "pdfViewer.darkMode": false,
+  "postman.mcp.notifications.postmanMCP": false,
+  // =========================
+  // FORMATTING
+  // =========================
+  "prettier.bracketSameLine": true,
+  "prettier.enable": true,
+  "prettier.enableDebugLogs": true,
+  "prettier.insertPragma": false,
+  "prettier.jsxSingleQuote": true,
+  "prettier.semi": false,
+  "prettier.singleAttributePerLine": true,
+  "prettier.singleQuote": true,
+  "problems.decorations.enabled": true,
+  "python.analysis.autoFormatStrings": true,
+  "scm.diffDecorationsGutterWidth": 1,
+  "search.useIgnoreFiles": false,
+  "security.promptForLocalFileProtocolHandling": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "settings.cycle": [
+    {
+      "id": "lineNumbersToggle",
+      "overrideWorkspaceSettings": true,
+      "values": [
+        {
+          "editor.lineNumbers": "off",
+        },
+        {
+          "editor.lineNumbers": "on",
+        },
+      ],
+    },
+  ],
+  "settingsSync.ignoredExtensions": [],
+  "settingsSync.ignoredSettings": [],
+  "tailwindCSS.classFunctions": [
+    "clsx",
+    "cn",
+    "cva",
+    "tw",
+    "twMerge"
+  ],
+  "tailwindCSS.emmetCompletions": true,
+  "terminal.integrated.allowedLinkSchemes": [
+    "file",
+    "http",
+    "https",
+    "mailto",
+    "vscode",
+    "vscode-insiders",
+    "docker-desktop",
+  ],
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.initialHint": false,
+  "terminal.integrated.profiles.osx": {
+    "AI": {
+      "args": [
+        "-l",
+        "-c",
+        "ollama serve"
+      ],
+      "color": "terminal.ansiMagenta",
+      "icon": "hubot",
+      "overrideName": true,
+      "path": "zsh",
+    },
+    "AICLI": {
+      "args": [
+        "-l",
+        "-c",
+        "cd ~/KB/project/app/loi && cn --model \"Qwen Coder\""
+      ],
+      "color": "terminal.ansiMagenta",
+      "icon": "hubot",
+      "overrideName": true,
+      "path": "zsh",
+    },
+    "Backend": {
+      "args": [
+        "-l"
+      ],
+      "color": "terminal.ansiGreen",
+      "icon": "database",
+      "overrideName": true,
+      "path": "zsh",
+    },
+    "Mobile": {
+      "args": [
+        "-l",
+        "-c",
+        "cd ~/KB/project/app/loi && zsh"
+      ],
+      "color": "terminal.ansiCyan",
+      "icon": "device-mobile",
+      "overrideName": true,
+      "path": "zsh",
+    },
+  },
+  "terminal.integrated.shellIntegration.decorationsEnabled": "gutter",
+  "terminal.integrated.stickyScroll.enabled": true,
+  "terminal.integrated.suggest.quickSuggestions": {
+    "commands": "on",
+  },
+  "terminalLinks.matchers": [
+    // ============================================================================
+    // Terminal Link Resolution Strategy: Path Aliasing vs. Workspace Root Resolution
+    // ============================================================================
+    //
+    // ISSUE:
+    // Cargo's CLI diagnostic output prints relative file paths (e.g.,
+    // "crates/learn/src/daemon/daemon.rs:132:1") prefixed with artifacts like "--> "
+    // or whitespace. VS Code's native terminal link detector fails to robustly resolve
+    // these against active workspace contexts, throwing them into a dead-end Quick Pick menu.
+    //
+    // WHY `${workspaceFolder}` FAILS HERE:
+    // Standard workspace variables evaluate dynamically, but extension-level matchers
+    // often resolve `${workspaceFolder}` based on the terminal's active child process
+    // working directory rather than the absolute root workspace manifest. If Cargo executes
+    // from a nested member or sub-crate context, the relative path compounds or desyncs,
+    // resulting in broken or duplicated paths.
+    //
+    // SOLUTION & SPEC:
+    // Using explicit absolute estate mapping (`${userHome}/KB/...`) anchors the target
+    // deterministically to your estate layout regardless of shell cwd shifts.
+    //
+    // SPECIFICATION REFERENCE:
+    // This relies on ANSI escape sequence and URI hyperlink formatting standards
+    // (specifically OSC 8 -- Operating System Commands for hyperlinks, combined with
+    // standard compiler diagnostic message formatting specs defined in IDE integration protocols).
+    // ============================================================================
+    // Two conflicting formatters for fixing VSCode cmd+click in terminal
+    // 1. Ownership CLI/Process output
+    // "terminalLinks.matchers": [
+    // {
+    // 	"regex": "(?:[:\\s]+)([a-zA-Z0-9_\\-./]+\\.rs):(\\d+):(\\d+)",
+    // 	"uri": "vscode://file${userHome}/KB/project/app/loi/$1:$2:$3"
+    // }
+    // ],
+    // 2. Rust formatter
+  ],
+  "todo-tree.filtering.excludeGlobs": [
+    "**/flow-tags/*",
+    "**/foam/*",
+    "**/ghostty/*",
+    "**/goam/*",
+    "**/inkwell-patched/*",
+    "**/k8s-platform/*",
+    "**/open-exchange/*",
+    "**/presenton/*",
+    "**/rust-analyzer/*",
+    "**/rust/*",
+    "**/rustowl/*",
+    "**/zed/*",
+    "**/node_modules/*/**",
+  ],
+  "todo-tree.general.tagGroups": {
+    "BUG:": [
+      "BUG:"
+    ],
+    "EXPLANATION:": [
+      "EXPLANATION:"
+    ],
+    "FLOW:": [
+      "FLOW:"
+    ],
+    "INFO:": [
+      "INFO:"
+    ],
+    "MARK:": [
+      "MARK:"
+    ],
+    "NOTE:": [
+      "NOTE:"
+    ],
+    "ROUTE:": [
+      "ROUTE:"
+    ],
+    "TODO:": [
+      "TODO:",
+      "[ ]",
+      "- [ ]"
+    ],
+  },
+  "todo-tree.general.tags": [
+    "TODO:",
+    "BUG:",
+    "EXPLANATION:",
+    "NOTE:",
+    "FIX:",
+    "FIXME:",
+    "MARK:",
+    "ROUTE:",
+    "FLOW:",
+    "INFO:",
+    "[ ]",
+    "- [ ]",
+  ],
+  "todo-tree.highlights.customHighlight": {
+    "BUG:": {
+      "icon": "bug",
+      "iconColour": "#ff0000",
+    },
+    "EXPLANATION:": {
+      "icon": "info",
+      "iconColour": "#ff70b3",
+    },
+    "FLOW:": {
+      "icon": "link",
+      "iconColour": "#4FE84F",
+    },
+    "INFO:": {
+      "icon": "sun",
+      "iconColour": "#d4de13",
+    },
+    "MARK:": {
+      "icon": "bookmark",
+      "iconColour": "#00bcd4",
+    },
+    "NOTE:": {
+      "icon": "note",
+      "iconColour": "#ce10d4",
+    },
+    "ROUTE:": {
+      "icon": "checklist",
+      "iconColour": "#4FE84F",
+    },
+    // "todo-tree.tree.labelFormat": "${tag:uppercase} ${after} [${filename}]",
+    // "todo-tree.tree.sortTagsOnlyViewAlphabetically": true,
+    // "todo-tree.tree.tooltipFormat": "${filename}:[${line}] in ${filepath}",
+    "TODO:": {
+      "icon": "checklist",
+      "iconColour": "#f07229",
+    },
+  },
+  "todo-tree.highlights.enabled": true,
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS).*(\\n\\s*//\\s{2,}.*)*",
+  "todo-tree.ripgrep.ripgrep": "/opt/homebrew/bin/rg",
+  "todo-tree.tree.scanAtStartup": true,
+  "vim.autoindent": true,
+  "vim.statusBarColorControl": true,
+  "vsicons.dontShowNewVersionMessage": true,
+  "vsicons.presets.hideExplorerArrows": true,
+  // "wikiLinks": {
+  //     "level": "info",
+  //     "show": true,
+  //     "showInStatusBar": true,
+  //     "showInOutputChannel": true,
+  //     "showInNotifications": true,
+  //     "showInProblems": true,
+  //     "showInDebugConsole": true,
+  //     "showInTerminal": true,
+  //     "showInEditor": true,
+  //     "showInEditorGutter": true,
+  //     "showInEditorInline": true,
+  //     "showInEditorHover": true,
+  //     "showInEditorPeek": true,
+  //     "showInEditorCodeLens": true,
+  //     "showInEditorInlayHints": true,
+  //     "showInEditorDecorations": true,
+  //     "showInEditorMinimap": true,
+  //     "showInEditorOverviewRuler": true,
+  //     "showInEditorGlyphMargin": true,
+  //     "showInEditorLineNumbers": true,
+  //     "showInEditorWhitespace": true,
+  //     "showInEditorIndentGuides": true,
+  // }
+  "wikiLinks.embed.maxDepth": 3,
+  "wikiLinks.level": "info",
+  // ============================================================================
+  // Zed
+  //  - Needs fold selection
+  //  - clear console
+  "wikiLinks.show": true,
+  "window.confirmSaveUntitledWorkspace": false,
+  "window.title": "${activeEditorMedium} • ${rootName}",
+  "workbench.activityBar.compact": true,
+  "workbench.colorCustomizations": {
+    "statusBar.debuggingForeground": "#ffffff",
+    "statusBar.foreground": "#ffffff",
+    "titleBar.activeBackground": "#08441f",
+    "titleBar.activeForeground": "#DCFCE7",
+    "titleBar.inactiveBackground": "#006da4",
+    "statusBar.background": "#5f0000",
+    "statusBar.noFolderBackground": "#5f0000",
+    "statusBar.debuggingBackground": "#5f0000",
+    "titleBar.inactiveForeground": "#000000CC"
+  },
+  "workbench.editor.empty.hint": "hidden",
+  "workbench.editor.useModal": "off",
+  "workbench.enableExperiments": false,
+  "workbench.preferredHighContrastColorTheme": "Dark 2026",
+  "workbench.settings.editor": "json",
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml",
+    "**/docker-compose.yml",
+    "**/docker-compose.yaml",
+    "**/docker-compose.*.yml",
+    "**/docker-compose.*.yaml",
+    "**/compose.yml",
+    "**/compose.yaml",
+    "**/compose.*.yml",
+    "**/compose.*.yaml"
+  ],
+  "yaml.schemas": {
+    "file:///Users/future/.vscode/extensions/continue.continue-2.0.0-darwin-arm64/config-yaml-schema.json": [
+      ".continue/**/*.yaml"
+    ]
+  },
+  "foam.files.exclude": [
+    "**/.vscode/**/*",
+    "**/_layouts/**/*",
+    "**/_site/**/*",
+    "**/node_modules/**/*",
+    "**/.venv/**/*",
+    "**/venv/**/*",
+    "**/env/**/*",
+    "**/.env/**/*",
+    "**/target/**/*",
+    "**/dist/**/*",
+    "**/build/**/*",
+    "**/.next/**/*",
+    "**/.nuxt/**/*",
+    "**/.terraform/**/*",
+    "**/.gradle/**/*",
+    "**/.idea/**/*",
+    "**/.cache/**/*",
+    "**/__pycache__/**/*",
+  ],
+  "foam.files.include": [
+    "**/*.md",
+    "**/*.rs"
+  ],
+  "files.watcherExclude": {
+    ".venv": true,
+    ".vscode/.server-controller-port.log": true,
+    "**/.venv": true,
+    "**/node_modules": true,
+    "**/notes": true,
+    "/opt/**": true,
+    "~/.pub-cache": true,
+    "node_modules": true,
+    "notes": true,
+    "venv": true,
+  },
+  "files.exclude": { // https://code.visualstudio.com/docs/editor/glob-patterns
+    // "ZZZZZ - Nested gen/lock files": true,
+    // "**/__init__*": true,
+    // "**/__pycache__": true,
+    // "**/.DS_Store": true,
+    // "**/.vercel": true,
+    // "**/Cargo.lock": true,
+    // "**/LICENSE": true,
+    // "**/LICENSE*": true,
+    // "**/node_modules": true,
+    // "**/package-lock.json": true,
+    // "**/pnpm-lock.yaml": true,
+    // "**/venv": true,
+    // "**/*.snap.new": true,
+    // "**/*.snap": true,
+    // "ZZZZZ - That which we almost never want to look at": true,
+    // ".ruff_cache": true,
+    // "pkg": true,
+    // "pkgs": true,
+    // "tmp": true,
+    // "ZZZZZ - ": true,
+    // "xtask": true,
+    // "**/.claude": true,
+    // "**/.eslintignore": true,
+    // "**/.foam*": true,
+    // "**/.git": true,
+    // "**/.gitattributes": true,
+    // "**/.github": true,
+    // "**/.gitignore": true,
+    // "**/.gitkeep": true,
+    // "**/.gitmodules": true,
+    // "**/.husky": true,
+    // "**/.markdownlint.json": true,
+    // "**/.markdownlint.jsonc": true,
+    // "**/.marksman.toml": true,
+    // "**/.netlify": true,
+    // "**/.next-build": true,
+    // "**/.next": true,
+    // "**/.npmrc": true,
+    // "**/.nvmrc": true,
+    // "**/.obsidian": true,
+    // "**/.prettierignore": true,
+    // "**/.prettierrc": true,
+    // "**/.server-controller-port.log": true,
+    // "**/.turbo": true,
+    // "**/.venv": true,
+    // // "**/.vscode-*": true,
+    // // "**/.vscodei": true,
+    // // "**/.vscode": true,
+    // "**/.zed": true,
+    // "**/*.svg": true,
+    // "**/assets*": true,
+    // "**/calculus-video-reviews": true,
+    // "**/corpus*": true,
+    // "**/CS*": true,
+    // "**/dist": true,
+    // // "**/doc*": true,
+    // "**/ee": true,
+    // "**/eslint.config.js": true,
+    // "**/journal": true,
+    // "**/jsconfig.json": true,
+    // "**/loi-zed-lsp/app": true,
+    // "**/meta*": true,
+    // "**/next-env.d.ts": true,
+    // "**/package.*.json": true,
+    // "**/postcss.config.cjs": true,
+    // "**/presenton": true,
+    // "**/prettier.config.cjs": true,
+    // "**/registry.generated.js": true,
+    // "**/rust/build*": true,
+    // "**/rustc-*": true,
+    // "**/rustdoc-*": true,
+    // "**/target": true,
+    // "**/top-25-most-important-Flutter-concepts": true,
+    // "**/trunk.toml": true,
+    // "**/tsconfig.build.json": true,
+    // "**/tsconfig.dev.json": true,
+    // "**/tsconfig.json": true,
+    // "**/tsconfig.pnpm.json": true,
+    // "**/tsconfig.tsbuildinfo": true,
+    // "**/vitest.config.ts": true,
+    // "**/workbook": true,
+    // "ZZZZZ - Nested workspace repo files because these are often duplicated but we probably want the 'root' one searcahble": true,
+    // "**/app/package.json": true,
+    // "**/crates/package.json": true,
+    // "**/pkg/package.json": true,
+    // "**/pkgs/package.json": true,
+    // "**/project/app": true,
+    // "ZZZZZ - Config dirs/files last because they're likely to be regularly modified": true,
+    // ".cargo": true,
+    // ".idea": true,
+    // ".eslintignore": true,
+    // ".git": true,
+    // ".gitattributes": true,
+    // ".github": true,
+    // ".gitignore": true,
+    // ".gitmodules": true,
+    // ".husky": true,
+    // ".markdownlint.json": true,
+    // ".markdownlint.jsonc": true,
+    // ".markdownlint.yaml": true,
+    // ".marksman.toml": true,
+    // ".obsidian": true,
+    // ".prettierignore": true,
+    // ".vercel": true,
+    // ".zed": true,
+    // "eslint.config.js": true,
+    // "estate.toml": true,
+    // "jsconfig.json": true,
+    // "oxfmt.config.ts": true,
+    // "oxlint.config.ts": true,
+    // "pnpm-workspace.yaml": true,
+    // "postcss.config.cjs": true,
+    // "prettier.config.cjs": true,
+    // "rustfmt.toml": true,
+    // "tsconfig.build.json": true,
+    // "tsconfig.dev.json": true,
+    // "tsconfig.json": true,
+    // "tsconfig.pnpm.json": true,
+    // "tsconfig.tsbuildinfo": true,
+    // "turbo.json": true,
+    // "vitest.config.ts": true,
+    // "**/*/.vscode": true, // Hide nested .vscodes from tree view.
+    // "**/*/rust": true, // Hide nested .vscodes from tree view.
+    // "*.part": true,
+    // "*.mp4": true,
+    // "*.ytdl": true,
+  },
+  "search.exclude": {
+    // "*.part": true,
+    // "*.ytdl": true,
+    // ".cargo/config.toml": false,
+    // ".markdownlint.json": false,
+    // ".markdownlint.jsonc": false,
+    // ".markdownlint.yaml": false,
+    // ".marksman.toml": false,
+    // ".obsidian": false,
+    // ".prettierignore": false,
+    // ".vercel": false,
+    // ".zed": false,
+    // "eslint.config.js": false,
+    // "estate.toml": false,
+    // "jsconfig.json": false,
+    // "pnpm-workspace.yaml": false,
+    // "postcss.config.cjs": false,
+    // "prettier.config.cjs": false,
+    // "rustfmt.toml": false,
+    // "tsconfig.build.json": false,
+    // "tsconfig.dev.json": false,
+    // "tsconfig.json": false,
+    // "tsconfig.pnpm.json": false,
+    // "tsconfig.tsbuildinfo": false,
+    // "turbo.json": false,
+    // "vitest.config.ts": false,
+  },
+  "ruff.logLevel": "debug",
+  "protobuf.autoDetection.prompted": true,
+  "[proto]": {
+    "editor.defaultFormatter": "DrBlury.protobuf-vsc",
+  },
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.md": "vscode.markdown.preview.editor"
+  },
+  "editor.minimap.enabled": false,
+  "editor.minimap.showSlider": "always",
+  "editor.minimap.renderCharacters": false,
+  "workbench.iconTheme": "vscode-icons",
+  "vsicons.associations.files": [
+    // https://github.com/vscode-icons/vscode-icons/wiki/ListOfFiles
+    {
+      "icon": "js",
+      "extensions": [
+        "myExt1",
+        "custom"
+      ], // Triggers on .myExt1 and .custom files
+      "format": "svg" // The extension asset format (usually svg)
+    },
+    {
+      "icon": "jsmap", // The built-in icon name to reuse
+      "extensions": [
+        "index.js"
+      ], // Targets a full file name
+      "filename": true, // Tell it to match the whole filename, not just extension
+      "format": "svg"
+    }
+  ],
+  "vsicons.associations.folders": [
+    // https://github.com/vscode-icons/vscode-icons/wiki/ListOfFolders
+    {
+      "icon": "bot",
+      "extensions": [
+        "ai"
+      ],
+      "filename": true,
+      "format": "svg"
+    },
+    {
+      "icon": "include",
+      "extensions": [
+        "session"
+      ],
+      "filename": true,
+      "format": "svg"
+    },
+    {
+      "icon": "e2e",
+      "extensions": [
+        "runner"
+      ],
+      "filename": true,
+      "format": "svg"
+    },
+    {
+      "icon": "databricks",
+      "extensions": [
+        "rustacean"
+      ],
+      "filename": true,
+      "format": "svg"
+    },
+    {
+      "icon": "api",
+      "extensions": [
+        "proto"
+      ],
+      "filename": true,
+      "format": "svg"
+    }
+  ],
+  "[swift]": {
+    "editor.defaultFormatter": "sweetpad.sweetpad"
+  },
+  "zig.zls.enabled": "on",
+  "window.customTitleBarVisibility": "windowed",
+  "workbench.layoutControl.enabled": false,
+  "workbench.navigationControl.enabled": false,
+  "chat.unifiedAgentsBar.enabled": true,
+  "workbench.experimental.modernUI": false,
+  "workbench.activityBar.location": "hidden",
+  "workbench.statusBar.visible": false,
+}

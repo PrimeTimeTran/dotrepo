@@ -166,6 +166,26 @@ foo-pipe() {
     table_end
 }
 
+
+foo-loop() {
+  names=(
+	"use-after-free"
+	"double-free"
+	"dangling-pointer"
+	"data-race"
+	"null-pointer"
+	"buffer-overflow"
+	"uninitialized-memory"
+	"iterator-invalidation"
+	"memory-leak"
+	"resource-lifetime"
+  )
+
+  for i in {1..10}; do
+	printf -v n "%02d" "$i"
+	touch "target/${n}-${names[$i]}.c"
+  done
+}
 # ============================================================
 # Color Formatting
 # ============================================================

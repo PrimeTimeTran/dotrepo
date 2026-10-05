@@ -1,37 +1,5 @@
 echo "05. 🔢 functions loading..."
 
-
-# curl --url 'https://surrit.com/3e24bb42-23f2-4826-8f16-737f4227afad/842x480/video.m3u8' \
-#   -H 'accept: */*' \
-#   -H 'accept-language: en-US,en;q=0.9,nl;q=0.8' \
-#   -H 'origin: https://missav.ws' \
-#   -H 'priority: u=1, i' \
-#   -H 'referer: https://missav.ws/dm26/en/ntk-217' \
-#   -H 'sec-ch-ua: "Google Chrome";v="153", "Not_A Brand";v="8", "Chromium";v="153"' \
-#   -H 'sec-ch-ua-mobile: ?0' \
-#   -H 'sec-ch-ua-platform: "macOS"' \
-#   -H 'sec-fetch-dest: empty' \
-#   -H 'sec-fetch-mode: cors' \
-#   -H 'sec-fetch-site: cross-site' \
-#   -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36'
-# SIRO-5053
-# SIRO-3171 
-# SIRO-5033 
-# https://surrit.com/7dc66d81-9e6b-46d2-a1ce-d0fd9f96dfd5/playlist.m3u8
-# SIRO-1544 
-# https://surrit.com/90a81f6e-4066-4ce0-b850-1e7fee10f99f/playlist.m3u8
-
-# curl --url 'https://surrit.com/82f18b61-6c07-43d9-880b-694084a2d3ab/playlist.m3u8' \
-#   -H 'sec-ch-ua-platform: "macOS"' \
-#   -H 'Referer: https://missav.ws/dm14/en/siro-5053' \
-#   -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36' \
-#   -H 'sec-ch-ua: "Google Chrome";v="153", "Not_A Brand";v="8", "Chromium";v="153"' \
-#   -H 'sec-ch-ua-mobile: ?0'
-
-# alias dls="downloadStream"
-# downloadStream() {
-#   ffmpeg -i "$2" -bsf:a aac_adtstoasc -vcodec copy -c copy -crf 50 "$1.mp4"
-# }
 alias dls1="downloadStream1"
 downloadStream1() {
   yt-dlp \
@@ -48,17 +16,7 @@ alias dls2="downloadStream2"
 downloadStream2() {
   yt-dlp -o "$1.mp4" -c "$2"
 }
-# curl --url 'https://gcdn.nuvid.com/mp4_lq/40ae672fd53b98ba0a9141001324b06f.mp4?md5=SCE1ZQqJKwrl31AaGSOGkQ&expire=1790085025&speed=140k&buffer=1108k&tip=1' \
-#   -H 'sec-ch-ua-full-version-list: "Google Chrome";v="153.0.8010.48", "Not_A Brand";v="8.0.0.0", "Chromium";v="153.0.8010.48"' \
-#   -H 'sec-ch-ua-platform: "macOS"' \
-#   -H 'Referer: https://www.nuvid.com/' \
-#   -H 'sec-ch-ua: "Google Chrome";v="153", "Not_A Brand";v="8", "Chromium";v="153"' \
-#   -H 'sec-ch-ua-model: ""' \
-#   -H 'sec-ch-ua-mobile: ?0' \
-#   -H 'sec-ch-ua-full-version: "153.0.8010.48"' \
-#   -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36' \
-#   -H 'Range: bytes=0-' \
-#   -H 'sec-ch-ua-platform-version: "15.3.2"'
+
 alias dl="downloadStream"
 downloadStream() {
   local first_arg_file_name="$1"
@@ -111,7 +69,7 @@ copydir() {
 }
 
 cw() {
-    watchman watch-del "$PWD" ; watchman watch-project "$PWD"
+  watchman watch-del "$PWD" ; watchman watch-project "$PWD"
 }
 
 asrun() {
@@ -241,26 +199,36 @@ build() {
     echo "Exit status: $exit_code"
 }
 build_sanitize() {
-    local name="${1%.c}"
-    shift
+	local name="${1%.c}"
+	shift
 
-    local src="target/$name.c"
-    local out="tmp/$name"
+	local src="target/$name.c"
+	local out="tmp/$name"
 
-    mkdir -p tmp
+	mkdir -p tmp
 
-    gcc \
-        -g \
-        -O0 \
-        -fsanitize=address,undefined \
-        "$@" \
-        "$src" \
-        -o "$out" || return
+	echo
+	echo "=== $name ==="
+	echo
+	echo "→ compiling with AddressSanitizer + UndefinedBehaviorSanitizer"
 
-    echo
-    echo "=== Running $name ==="
+	gcc \
+		-g \
+		-O0 \
+		-fsanitize=address,undefined \
+		"$@" \
+		"$src" \
+		-o "$out" || return
 
-    "$out"
+	echo "✓ compiled"
+	echo "→ running"
+	echo
+
+	"$out"
+	local exit_code=$?
+
+	echo
+	echo "→ exit status: $exit_code"
 }
 _build_examples() {
     local -a files
@@ -291,9 +259,35 @@ build_pthread() {
     "$out"
 }
 compdef _build_examples build
-compdef _build_examples build_rust
 compdef _build_examples build_sanitize
 compdef _build_examples build_pthread
+
+build_all() {
+	local file
+	local name
+
+	for file in target/*.c; do
+		name="${file:t:r}"
+
+		echo
+		echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+		echo "  $name"
+		echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+		case "$name" in
+			04-data-race)
+				build_pthread "$name"
+				;;
+			*)
+				build_sanitize "$name"
+				;;
+		esac
+
+		echo
+		read -k 1 "?Press any key for the next example..."
+		echo
+	done
+}
 
 hls_info() {
     local playlist="$1"
@@ -389,14 +383,10 @@ killit() {
 	kill -9 $pids
 }
 
-
 run_gesture() {
   APP="$HOME/Library/Developer/Xcode/DerivedData/Jitouch-awdrxkydbewiitbfccdshqkylzkq/Build/Products/Debug/Jitouch.app/Contents/MacOS/Jitouch"
   echo "$APP"
   "$APP"
-
-  # Find it
-  # pgrep -fl Jitouch
 }
 
 

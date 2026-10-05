@@ -27,9 +27,6 @@ fpath=(
 # ============================================================
 # 1. Environment
 # ============================================================
-## [-f ~/.zsh-env.zsh]: Compact shell conditional.
-## [...]: Test
-## -f: "Does this path exist and is it a regular file?"
 [ -f ~/.config/zsh/env.zsh ] && source ~/.config/zsh/env.zsh
 
 # -d path     # directory exists
@@ -87,7 +84,6 @@ yarn() {
 
 eval "$(pyenv init -)"
 
-# Vite+
 [ -f "$HOME/.vite-plus/env" ] && . "$HOME/.vite-plus/env"
 
 # ============================================================
