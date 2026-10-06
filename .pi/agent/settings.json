@@ -1,0 +1,7 @@
+{
+  "defaultModel": "qwen2.5-coder:7b",
+  "defaultProvider": "ollama",
+  "lastChangelogVersion": "0.84.4",
+  "theme": "dark",
+  "packages": ["npm:@ollama/pi-web-search"]
+}
