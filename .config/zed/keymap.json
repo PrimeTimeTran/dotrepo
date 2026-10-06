@@ -3,7 +3,6 @@
 		"context": "buffer_search_deployed",
 		"bindings": {
 			"esc": "project_panel::Toggle"
-			// "cmd-1": "project_panel::Toggle",
 		}
 	},
 	{
@@ -192,6 +191,7 @@
 	{
 		"context": "ProjectPanel",
 		"bindings": {
+			"cmd-d": "project_panel::NewDirectory",
 			"enter": "project_panel::Rename",
 			"cmd-ctrl-alt-shift-p": [
 				"action::Sequence",
@@ -343,15 +343,15 @@
 			"cmd-k cmd-f": "zed::OpenKeymapFile",
 			"cmd-d cmd-1": [
 				"action::Sequence",
-				["editor::ToggleFoldAll", ["editor::FoldAtLevel", 2]]
+				["editor::UnfoldAll", ["editor::FoldAtLevel", 2]]
 			],
 			"cmd-d cmd-2": [
 				"action::Sequence",
-				["editor::ToggleFoldAll", ["editor::FoldAtLevel", 3]]
+				["editor::UnfoldAll", ["editor::FoldAtLevel", 3]]
 			],
 			"cmd-d cmd-3": [
 				"action::Sequence",
-				["editor::ToggleFoldAll", ["editor::FoldAtLevel", 4]]
+				["editor::UnfoldAll", ["editor::FoldAtLevel", 4]]
 			]
 		}
 	},
@@ -361,5 +361,59 @@
 		"bindings": {
 			"escape": "buffer_search::Dismiss"
 		}
+	},
+	{
+		"context": "!ProjectPanel",
+		"bindings": {
+			"cmd-d cmd-c": [
+				"action::Sequence",
+				[
+					["editor::FoldAll", 0],
+					// ["project_panel::CollapseAllEntries", 0],
+					["outline_panel::CollapseAllEntries", 0]
+				]
+			],
+			"cmd-d cmd-e": [
+				"action::Sequence",
+				[
+					["editor::ToggleFoldAll", 0],
+					["outline_panel::ExpandAllEntries", 0]
+					// "pane::RevealInProjectPanel"
+				]
+			]
+		}
 	}
+	// {
+	// 	"context": "!OutlinePanel",
+	// 	"bindings": {
+	// 		"cmd-d cmd-c": [
+	// 			"action::Sequence",
+	// 			[
+	// 				["editor::ToggleFoldAll", 0],
+	// 				// ["project_panel::CollapseAllEntries", 0],
+	// 				["outline_panel::CollapseAllEntries", 0]
+	// 			]
+	// 		],
+	// 		"cmd-d cmd-e": [
+	// 			"action::Sequence",
+	// 			[
+	// 				["editor::ToggleFoldAll", 0],
+	// 				["outline_panel::ExpandAllEntries", 0],
+	// 				// "pane::RevealInProjectPanel"
+	// 			]
+	// 		]
+	// 	}
+	// }
+,
+ {
+  "context": "!AcpThread > Editor && mode == full",
+  "bindings": {
+   "cmd-d cmd-a": "pane::RevealInProjectPanel"
+  }
+ },
+ {
+  "bindings": {
+   "cmd-shift-d cmd-shift-c": "workspace::FocusCenterPane"
+  }
+ }
 ]

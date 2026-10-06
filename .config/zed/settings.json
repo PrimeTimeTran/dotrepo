@@ -1,6 +1,7 @@
 {
 	// Styling
-	"theme": {
+	"buffer_font_weight": 300.0,
+ "theme": {
 		"mode": "system",
 		"light": "One Light",
 		"dark": "One Dark"
@@ -16,7 +17,7 @@
 	"show_wrap_guides": false,
 	"soft_wrap": "none",
 	"tab_size": 2,
-	"ui_font_size": 20,
+	"ui_font_size": 16.0,
 	"unnecessary_code_fade": 0.2,
 	"use_on_type_format": true,
 	"wrap_guides": [100],
@@ -381,6 +382,13 @@
 		"tsconfig.tsbuildinfo",
 		"turbo.json",
 		"vitest.config.ts",
-		"xtask"
+		"xtask",
+
+		"doc",
+		"./estate",
+		"./public",
+		"./script",
+		"./proto",
+		"./template",
 	]
 }

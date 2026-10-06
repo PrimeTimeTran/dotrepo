@@ -458,7 +458,6 @@
   "breadcrumbs.showMethods": false,
   "breadcrumbs.showProperties": false,
   "chat.editing.confirmEditRequestRemoval": false,
-  "chat.viewSessions.orientation": "stacked",
   "cSpell.enabledNotifications": {
     "Average Word Length too Long": false,
     "Lines too Long": false,
@@ -476,6 +475,7 @@
   "cSpell.userWords": [
     "Analayzer",
     "axuielement",
+    "bootout",
     "callsign",
     "CGEVENT",
     "Civara",
@@ -1325,5 +1325,4 @@
   "chat.unifiedAgentsBar.enabled": true,
   "workbench.experimental.modernUI": false,
   "workbench.activityBar.location": "hidden",
-  "workbench.statusBar.visible": false,
 }

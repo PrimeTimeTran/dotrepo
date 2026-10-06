@@ -1624,6 +1624,10 @@
     "when": "filesExplorerFocus"
   },
   {
+    "key": "cmd+d cmd+a",
+    "command": "workbench.files.action.showActiveFileInExplorer",
+  },
+  {
     "key": "cmd+n",
     "command": "workbench.files.action.createFileFromExplorer",
     "when": "filesExplorerFocus"
@@ -1641,5 +1645,10 @@
     "key": "cmd+numpad2",
     "command": "editor.foldRecursively",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+cmd+0",
+    "command": "workbench.action.chat.openagent",
+    "when": "!chatSetupDisabledInWorkspace && !chatSetupHidden"
   },
 ]
