@@ -1,0 +1,2613 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProjectSettingsContent",
+  "description": "The settings for a particular language.",
+  "type": "object",
+  "properties": {
+    "edit_predictions": {
+      "description": "The edit prediction settings.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EditPredictionSettingsContent"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tab_size": {
+      "description": "How many columns a tab should occupy.\n\nDefault: 4",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "format": "uint32",
+      "minimum": 1,
+      "maximum": 128
+    },
+    "hard_tabs": {
+      "description": "Whether to indent lines using tab characters, as opposed to multiple\nspaces.\n\nDefault: false",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "soft_wrap": {
+      "description": "How to soft-wrap long lines of text.\n\nDefault: none",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SoftWrap"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "preferred_line_length": {
+      "description": "The column at which to soft-wrap lines, for buffers where soft-wrap\nis enabled.\n\nDefault: 80",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "format": "uint32",
+      "minimum": 0
+    },
+    "show_wrap_guides": {
+      "description": "Whether to show wrap guides in the editor. Setting this to true will\nshow a guide at the 'preferred_line_length' value if softwrap is set to\n'preferred_line_length', and will show any additional guides as specified\nby the 'wrap_guides' setting.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "wrap_guides": {
+      "description": "Character counts at which to show wrap guides in the editor.\n\nDefault: []",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "integer",
+        "format": "uint",
+        "minimum": 0
+      }
+    },
+    "indent_guides": {
+      "description": "Indent guide related settings.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/IndentGuideSettingsContent"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "format_on_save": {
+      "description": "Whether or not to perform a buffer format before saving.\n\nDefault: on",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FormatOnSave"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "remove_trailing_whitespace_on_save": {
+      "description": "Whether or not to remove any trailing whitespace from lines of a buffer\nbefore saving it.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "ensure_final_newline_on_save": {
+      "description": "Whether or not to ensure there's a single newline at the end of a buffer\nwhen saving it.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "line_ending": {
+      "description": "How line endings should be handled for new files and during format and\nsave operations.\n\n- `detect`: Detect existing line endings and otherwise use the platform\n  default (`lf` on Unix, `crlf` on Windows).\n- `prefer_lf`: Prefer LF for new files and files with no existing line\n  ending.\n- `prefer_crlf`: Prefer CRLF for new files and files with no existing\n  line ending.\n- `enforce_lf`: Enforce LF during format and save.\n- `enforce_crlf`: Enforce CRLF during format and save.\n\nThe EditorConfig `end_of_line` property overrides this setting and\nbehaves like `enforce_lf` or `enforce_crlf`.\n\nDefault: detect",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LineEndingSetting"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "formatter": {
+      "description": "How to perform a buffer format.\n\nDefault: auto",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FormatterList"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "prettier": {
+      "description": "Zed's Prettier integration settings.\nAllows to enable/disable formatting with Prettier\nand configure default Prettier, used when no project-level Prettier installation is found.\n\nDefault: off",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PrettierSettingsContent"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "jsx_tag_auto_close": {
+      "description": "Whether to automatically close JSX tags.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/JsxTagAutoCloseSettingsContent"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "enable_language_server": {
+      "description": "Whether to use language servers to provide code intelligence.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "language_servers": {
+      "description": "The list of language servers to use (or disable) for this language.\n\nThis array should consist of language server IDs, as well as the following\nspecial tokens:\n- `\"!<language_server_id>\"` - A language server ID prefixed with a `!` will be disabled.\n- `\"...\"` - A placeholder to refer to the **rest** of the registered language servers for this language.\n\nDefault: [\"...\"]",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "semantic_tokens": {
+      "description": "Controls how semantic tokens from language servers are used for syntax highlighting.\n\nOptions:\n- \"off\": Do not request semantic tokens from language servers.\n- \"combined\": Use LSP semantic tokens together with tree-sitter highlighting.\n- \"full\": Use LSP semantic tokens exclusively, replacing tree-sitter highlighting.\n\nDefault: \"off\"",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SemanticTokens"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "document_folding_ranges": {
+      "description": "Controls whether folding ranges from language servers are used instead of\ntree-sitter and indent-based folding.\n\nOptions:\n- \"off\": Use tree-sitter and indent-based folding (default).\n- \"on\": Use LSP folding wherever possible, falling back to tree-sitter and indent-based folding when no results were returned by the server.\n\nDefault: \"off\"",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DocumentFoldingRanges"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "document_symbols": {
+      "description": "Controls the source of document symbols used for outlines and breadcrumbs.\n\nOptions:\n- \"off\": Use tree-sitter queries to compute document symbols (default).\n- \"on\": Use the language server's `textDocument/documentSymbol` LSP response. When enabled, tree-sitter is not used for document symbols.\n\nDefault: \"off\"",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DocumentSymbols"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "allow_rewrap": {
+      "description": "Controls where the `editor::Rewrap` action is allowed for this language.\n\nNote: This setting has no effect in Vim mode, as rewrap is already\nallowed everywhere.\n\nDefault: \"in_comments\"",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RewrapBehavior"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "show_edit_predictions": {
+      "description": "Controls whether edit predictions are shown immediately (true)\nor manually by triggering `editor::ShowEditPrediction` (false).\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "edit_predictions_disabled_in": {
+      "description": "Controls whether edit predictions are shown in the given language\nscopes.\n\nExample: [\"string\", \"comment\"]\n\nDefault: []",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "show_whitespaces": {
+      "description": "Whether to show tabs and spaces in the editor.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ShowWhitespaceSetting"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "whitespace_map": {
+      "description": "Visible characters used to render whitespace when show_whitespaces is enabled.\n\nDefault: \"•\" for spaces, \"→\" for tabs.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/WhitespaceMapContent"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "extend_comment_on_newline": {
+      "description": "Whether to start a new line with a comment when a previous line is a comment as well.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "extend_list_on_newline": {
+      "description": "Whether to continue markdown lists when pressing enter.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "indent_list_on_tab": {
+      "description": "Whether to indent list items when pressing tab after a list marker.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "inlay_hints": {
+      "description": "Inlay hint related settings.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/InlayHintSettingsContent"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "use_autoclose": {
+      "description": "Whether to automatically type closing characters for you. For example,\nwhen you type '(', Zed will automatically add a closing ')' at the correct position.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "use_auto_surround": {
+      "description": "Whether to automatically surround text with characters for you. For example,\nwhen you select text and type '(', Zed will automatically surround text with ().\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "always_treat_brackets_as_autoclosed": {
+      "description": "Controls how the editor handles the autoclosed characters.\nWhen set to `false`(default), skipping over and auto-removing of the closing characters\nhappen only for auto-inserted characters.\nOtherwise(when `true`), the closing characters are always skipped over and auto-removed\nno matter how they were inserted.\n\nDefault: false",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "use_on_type_format": {
+      "description": "Whether to use additional LSP queries to format (and amend) the code after\nevery \"trigger\" symbol input, defined by LSP server capabilities.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "code_actions_on_format": {
+      "description": "Which code actions to run on save before the formatter.\nThese are not run if formatting is off.\n\nDefault: {} (or {\"source.organizeImports\": true} for Go).",
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "linked_edits": {
+      "description": "Whether to perform linked edits of associated ranges, if the language server supports it.\nFor example, when editing opening <html> tag, the contents of the closing </html> tag will be edited as well.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "auto_indent": {
+      "description": "Controls automatic indentation behavior when typing.\n\n- \"syntax_aware\": Adjusts indentation based on syntax context (default)\n- \"preserve_indent\": Preserves current line's indentation on new lines\n- \"none\": No automatic indentation\n\nDefault: syntax_aware",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AutoIndentMode"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "auto_indent_on_paste": {
+      "description": "Whether indentation of pasted content should be adjusted based on the context.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "tasks": {
+      "description": "Task configuration for this language.\n\nDefault: {}",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LanguageTaskSettingsContent"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "show_completions_on_input": {
+      "description": "Whether to pop the completions menu while typing in an editor without\nexplicitly requesting it.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "show_completion_documentation": {
+      "description": "Whether to display inline and alongside documentation for items in the\ncompletions menu.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "completions": {
+      "description": "Controls how completions are processed for this language.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CompletionSettingsContent"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "debuggers": {
+      "description": "Preferred debuggers for this language.\n\nDefault: []",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "word_diff_enabled": {
+      "description": "Whether to enable word diff highlighting in the editor.\n\nWhen enabled, changed words within modified lines are highlighted\nto show exactly what changed.\n\nDefault: true",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "colorize_brackets": {
+      "description": "Whether to use tree-sitter bracket queries to detect and colorize the brackets in the editor.\n\nDefault: false",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "languages": {
+      "description": "The settings for individual languages.",
+      "$ref": "#/$defs/LanguageToSettingsMap",
+      "default": {}
+    },
+    "file_types": {
+      "description": "Settings for associating file extensions and filenames\nwith languages.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FileTypeMap"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "prevent_sharing_in_public_channels": {
+      "description": "Whether to prevent this project from being shared in public channels.\n\nDefault: false",
+      "type": "boolean",
+      "default": false
+    },
+    "file_scan_exclusions": {
+      "description": "Completely ignore files matching globs from `file_scan_exclusions`. Overrides\n`file_scan_inclusions`.\n\nDefault: [\n  \"**/.git\",\n  \"**/.svn\",\n  \"**/.hg\",\n  \"**/.jj\",\n  \"**/CVS\",\n  \"**/.DS_Store\",\n  \"**/Thumbs.db\",\n  \"**/.classpath\",\n  \"**/.settings\"\n]",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "file_scan_inclusions": {
+      "description": "Always include files that match these globs when scanning for files, even if they're\nignored by git. This setting is overridden by `file_scan_exclusions`.\nDefault: [\n \".env*\",\n \"docker-compose.*.yml\",\n]",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "scan_symlinks": {
+      "description": "When to scan content of linked directories.\n\nDefault: expanded",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ScanSymlinksSetting"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "private_files": {
+      "description": "Treat the files matching these globs as `.env` files.\nDefault: [\"**/.env*\", \"**/*.pem\", \"**/*.key\", \"**/*.cert\", \"**/*.crt\", \"**/secrets.yml\"]",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExtendingVec"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "hidden_files": {
+      "description": "Treat the files matching these globs as hidden files. You can hide hidden files in the project panel.\nDefault: [\"**/.*\"]",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "read_only_files": {
+      "description": "Treat the files matching these globs as read-only. These files can be opened and viewed,\nbut cannot be edited. This is useful for generated files, build outputs, or files from\nexternal dependencies that should not be modified directly.\nDefault: []",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "lsp": {
+      "description": "Configuration for language servers.\n\nThe following settings can be overridden for specific language servers:\n- initialization_options\n\nTo override settings for a language, add an entry for that language server's\nname to the lsp value.\nDefault: null",
+      "$ref": "#/$defs/LspSettingsMap",
+      "default": {}
+    },
+    "terminal": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ProjectTerminalSettingsContent"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "dap": {
+      "description": "Configuration for Debugger-related features",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/DapSettingsContent"
+      },
+      "default": {}
+    },
+    "context_servers": {
+      "description": "Settings for context servers used for AI-related features.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/ContextServerSettingsContent"
+      },
+      "default": {}
+    },
+    "context_server_timeout": {
+      "description": "Default timeout in seconds for context server tool calls.\nCan be overridden per-server in context_servers configuration.\n\nDefault: 60",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "format": "uint64",
+      "minimum": 0
+    },
+    "load_direnv": {
+      "description": "Configuration for how direnv configuration should be loaded",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DirenvSettings"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "git_hosting_providers": {
+      "description": "The list of custom Git hosting providers.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExtendingVec2"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "disable_ai": {
+      "description": "Whether to disable all AI features in Zed.\n\nDefault: false",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SaturatingBool"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "EditPredictionSettingsContent": {
+      "description": "The contents of the edit prediction settings.",
+      "type": "object",
+      "properties": {
+        "provider": {
+          "description": "Determines which edit prediction provider to use.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EditPredictionProvider"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "disabled_globs": {
+          "description": "A list of globs representing files that edit predictions should be disabled for.\nThis list adds to a pre-existing, sensible default set of globs.\nAny additional ones you add are combined with them.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "mode": {
+          "description": "The mode used to display edit predictions in the buffer.\nProvider support required.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EditPredictionsMode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "copilot": {
+          "description": "Settings specific to GitHub Copilot.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CopilotSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "codestral": {
+          "description": "Settings specific to Codestral.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CodestralSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ollama": {
+          "description": "Settings specific to Ollama.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OllamaEditPredictionSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "open_ai_compatible_api": {
+          "description": "Settings specific to using custom OpenAI-compatible servers for edit prediction.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CustomEditPredictionProviderSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allow_data_collection": {
+          "description": "Controls whether Zed may collect training data when using Zed's Edit Predictions.\nData is only ever captured for files in projects that are detected as open source.\n\n- `\"default\"`: use the preference previously set via the status-bar toggle,\n  or false if no preference has been stored.\n- `\"yes\"`: allow data collection for files in open-source projects.\n- `\"no\"`: never allow data collection.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EditPredictionDataCollectionChoice"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "EditPredictionProvider": {
+      "description": "The provider that supplies edit predictions.",
+      "type": "string",
+      "enum": [
+        "none",
+        "copilot",
+        "zed",
+        "codestral",
+        "ollama",
+        "open_ai_compatible_api",
+        "mercury"
+      ]
+    },
+    "EditPredictionsMode": {
+      "description": "The mode in which edit predictions should be displayed.",
+      "oneOf": [
+        {
+          "description": "If provider supports it, display inline when holding modifier key (e.g., alt).\nOtherwise, eager preview is used.",
+          "type": "string",
+          "const": "subtle"
+        },
+        {
+          "description": "Display inline when there are no language server completions available.",
+          "type": "string",
+          "const": "eager"
+        }
+      ]
+    },
+    "CopilotSettingsContent": {
+      "type": "object",
+      "properties": {
+        "proxy": {
+          "description": "HTTP/HTTPS proxy to use for Copilot.\n\nDefault: none",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "proxy_no_verify": {
+          "description": "Disable certificate verification for the proxy (not recommended).\n\nDefault: false",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "enterprise_uri": {
+          "description": "Enterprise URI for Copilot.\n\nDefault: none",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enable_next_edit_suggestions": {
+          "description": "Whether the Copilot Next Edit Suggestions feature is enabled.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "CodestralSettingsContent": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "description": "Model to use for completions.\n\nDefault: \"codestral-latest\"",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "max_tokens": {
+          "description": "Maximum tokens to generate.\n\nDefault: 150",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0
+        },
+        "api_url": {
+          "description": "Api URL to use for completions.\n\nDefault: \"https://codestral.mistral.ai\"",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "OllamaEditPredictionSettingsContent": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "description": "Model to use for completions.\n\nDefault: none",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OllamaModelName"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_output_tokens": {
+          "description": "Maximum tokens to generate for FIM models and self-hosted Sweep rewrite responses.\n\nDefault: 256",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0
+        },
+        "api_url": {
+          "description": "Api URL to use for completions.\n\nDefault: \"http://localhost:11434\"",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt_format": {
+          "description": "The prompt format to use for completions. Set to `\"\"` to have the format be derived from the model name.\n\nDefault: \"\"",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EditPredictionPromptFormatContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "OllamaModelName": {
+      "description": "Ollama model name for edit predictions.",
+      "type": "string"
+    },
+    "EditPredictionPromptFormatContent": {
+      "type": "string",
+      "enum": [
+        "infer",
+        "zeta",
+        "zeta2",
+        "zeta2_1",
+        "code_llama",
+        "star_coder",
+        "deepseek_coder",
+        "qwen",
+        "code_gemma",
+        "codestral",
+        "glm",
+        "sweep"
+      ]
+    },
+    "CustomEditPredictionProviderSettingsContent": {
+      "type": "object",
+      "properties": {
+        "api_url": {
+          "description": "Api URL to use for completions.\n\nDefault: \"\"",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt_format": {
+          "description": "The prompt format to use for completions. Set to `\"\"` to have the format be derived from the model name.\n\nDefault: \"\"",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EditPredictionPromptFormatContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model": {
+          "description": "The name of the model.\n\nDefault: \"\"",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "max_output_tokens": {
+          "description": "Maximum tokens to generate for FIM models and self-hosted Sweep rewrite responses.\n\nDefault: 256",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0
+        }
+      }
+    },
+    "EditPredictionDataCollectionChoice": {
+      "description": "Controls whether Zed collects training data when using Zed's Edit Predictions.",
+      "oneOf": [
+        {
+          "description": "Use the preference previously set via the status-bar toggle, or false\nif no preference has been stored.",
+          "type": "string",
+          "const": "default"
+        },
+        {
+          "description": "Allow Zed to collect training data from open-source projects.",
+          "type": "string",
+          "const": "yes"
+        },
+        {
+          "description": "Never allow training data collection.",
+          "type": "string",
+          "const": "no"
+        }
+      ]
+    },
+    "SoftWrap": {
+      "description": "Controls the soft-wrapping behavior in the editor.",
+      "oneOf": [
+        {
+          "description": "Prefer a single line generally, unless an overly long line is encountered.",
+          "type": "string",
+          "const": "none"
+        },
+        {
+          "description": "Deprecated: use None instead. Left to avoid breaking existing users' configs.\nPrefer a single line generally, unless an overly long line is encountered.",
+          "type": "string",
+          "const": "prefer_line"
+        },
+        {
+          "description": "Soft wrap lines that exceed the editor width.",
+          "type": "string",
+          "const": "editor_width"
+        },
+        {
+          "description": "Soft wrap line at the preferred line length or the editor width (whichever is smaller).",
+          "type": "string",
+          "const": "bounded"
+        }
+      ]
+    },
+    "IndentGuideSettingsContent": {
+      "description": "The settings for indent guides.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Whether to display indent guides in the editor.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "line_width": {
+          "description": "The width of the indent guides in pixels, between 1 and 10.\n\nDefault: 1",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0
+        },
+        "active_line_width": {
+          "description": "The width of the active indent guide in pixels, between 1 and 10.\n\nDefault: 1",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0
+        },
+        "coloring": {
+          "description": "Determines how indent guides are colored.\n\nDefault: Fixed",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IndentGuideColoring"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "background_coloring": {
+          "description": "Determines how indent guide backgrounds are colored.\n\nDefault: Disabled",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IndentGuideBackgroundColoring"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "IndentGuideColoring": {
+      "description": "Determines how indent guides are colored.",
+      "oneOf": [
+        {
+          "description": "Do not render any lines for indent guides.",
+          "type": "string",
+          "const": "disabled"
+        },
+        {
+          "description": "Use the same color for all indentation levels.",
+          "type": "string",
+          "const": "fixed"
+        },
+        {
+          "description": "Use a different color for each indentation level.",
+          "type": "string",
+          "const": "indent_aware"
+        }
+      ]
+    },
+    "IndentGuideBackgroundColoring": {
+      "description": "Determines how indent guide backgrounds are colored.",
+      "oneOf": [
+        {
+          "description": "Do not render any background for indent guides.",
+          "type": "string",
+          "const": "disabled"
+        },
+        {
+          "description": "Use a different color for each indentation level.",
+          "type": "string",
+          "const": "indent_aware"
+        }
+      ]
+    },
+    "FormatOnSave": {
+      "description": "TODO: this should just be a bool\nControls the behavior of formatting files when they are saved.",
+      "oneOf": [
+        {
+          "description": "Files should be formatted on save.",
+          "type": "string",
+          "const": "on"
+        },
+        {
+          "description": "Files should not be formatted on save.",
+          "type": "string",
+          "const": "off"
+        },
+        {
+          "description": "Only lines with unstaged changes are formatted on save.\nRequires source control and LSP range formatting support.\nIf no git diff is available or if the LSP doesn't support\nrange formatting, formatting is skipped.",
+          "type": "string",
+          "const": "modifications"
+        },
+        {
+          "description": "Only lines with unstaged changes are formatted on save.\nIf no git diff is available (e.g., when source control is\nunavailable) or if the LSP doesn't support range formatting,\nfalls back to formatting the whole file.",
+          "type": "string",
+          "const": "modifications_if_available"
+        }
+      ]
+    },
+    "LineEndingSetting": {
+      "description": "Controls how line endings are normalized when a buffer is saved.",
+      "oneOf": [
+        {
+          "description": "Preserve the existing line endings of the file. New files use the\nplatform default line ending.",
+          "type": "string",
+          "const": "detect"
+        },
+        {
+          "description": "Use LF for new files and files with no existing line-ending\nconvention, while preserving existing LF or CRLF files.",
+          "type": "string",
+          "const": "prefer_lf"
+        },
+        {
+          "description": "Use CRLF for new files and files with no existing line-ending\nconvention, while preserving existing LF or CRLF files.",
+          "type": "string",
+          "const": "prefer_crlf"
+        },
+        {
+          "description": "Normalize line endings to LF (`\\n`) during format and save.",
+          "type": "string",
+          "const": "enforce_lf"
+        },
+        {
+          "description": "Normalize line endings to CRLF (`\\r\\n`) during format and save.",
+          "type": "string",
+          "const": "enforce_crlf"
+        }
+      ]
+    },
+    "FormatterList": {
+      "description": "Controls which formatters should be used when formatting code.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Formatter"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Formatter"
+          }
+        }
+      ]
+    },
+    "Formatter": {
+      "description": "Controls which formatter should be used when formatting code. If there are multiple formatters, they are executed in the order of declaration.",
+      "anyOf": [
+        {
+          "description": "Format files using Zed's Prettier integration (if applicable),\nor falling back to formatting via language server.",
+          "type": "string",
+          "const": "auto"
+        },
+        {
+          "description": "Do not format code.",
+          "type": "string",
+          "const": "none"
+        },
+        {
+          "description": "Format code using Zed's Prettier integration.",
+          "type": "string",
+          "const": "prettier"
+        },
+        {
+          "description": "Format code using an external command.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "type": "object",
+              "properties": {
+                "command": {
+                  "description": "The external program to run.",
+                  "type": "string"
+                },
+                "arguments": {
+                  "description": "The arguments to pass to the program.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "command"
+              ]
+            }
+          },
+          "required": [
+            "external"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "description": "Files should be formatted using a code action executed by language servers.",
+          "type": "object",
+          "properties": {
+            "code_action": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code_action"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "description": "Format code using a language server.",
+          "$ref": "#/$defs/LanguageServerFormatterSpecifier"
+        }
+      ]
+    },
+    "LanguageServerFormatterSpecifier": {
+      "anyOf": [
+        {
+          "description": "Format code using a specific language server.",
+          "type": "object",
+          "properties": {
+            "language_server": {
+              "$ref": "#/$defs/LanguageServerSpecifierContent"
+            }
+          },
+          "required": [
+            "language_server"
+          ]
+        },
+        {
+          "description": "Format code using the current language server.",
+          "$ref": "#/$defs/CurrentLanguageServerContent"
+        }
+      ]
+    },
+    "LanguageServerSpecifierContent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the language server to format with",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "CurrentLanguageServerContent": {
+      "type": "string",
+      "enum": [
+        "language_server"
+      ]
+    },
+    "PrettierSettingsContent": {
+      "description": "Allows to enable/disable formatting with Prettier\nand configure default Prettier, used when no project-level Prettier installation is found.\nPrettier formatting is disabled by default.",
+      "type": "object",
+      "properties": {
+        "allowed": {
+          "description": "Enables or disables formatting with Prettier for a given language.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "parser": {
+          "description": "Forces Prettier integration to use a specific parser name when formatting files with the language.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "plugins": {
+          "description": "Forces Prettier integration to use specific plugins when formatting files with the language.\nThe default Prettier will be installed with these plugins.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "JsxTagAutoCloseSettingsContent": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Enables or disables auto-closing of JSX tags.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "SemanticTokens": {
+      "description": "Controls how semantic tokens from language servers are used for syntax highlighting.",
+      "oneOf": [
+        {
+          "description": "Do not request semantic tokens from language servers.",
+          "type": "string",
+          "const": "off"
+        },
+        {
+          "description": "Use LSP semantic tokens together with tree-sitter highlighting.",
+          "type": "string",
+          "const": "combined"
+        },
+        {
+          "description": "Use LSP semantic tokens exclusively, replacing tree-sitter highlighting.",
+          "type": "string",
+          "const": "full"
+        }
+      ]
+    },
+    "DocumentFoldingRanges": {
+      "oneOf": [
+        {
+          "description": "Do not request folding ranges from language servers; use tree-sitter and indent-based folding.",
+          "type": "string",
+          "const": "off"
+        },
+        {
+          "description": "Use LSP folding wherever possible, falling back to tree-sitter and indent-based folding when no results were returned by the server.",
+          "type": "string",
+          "const": "on"
+        }
+      ]
+    },
+    "DocumentSymbols": {
+      "oneOf": [
+        {
+          "description": "Use tree-sitter queries to compute document symbols for outlines and breadcrumbs (default).",
+          "type": "string",
+          "const": "off"
+        },
+        {
+          "description": "Use the language server's `textDocument/documentSymbol` LSP response for outlines and\nbreadcrumbs. When enabled, tree-sitter is not used for document symbols.",
+          "type": "string",
+          "const": "on"
+        }
+      ]
+    },
+    "RewrapBehavior": {
+      "description": "The behavior of `editor::Rewrap`.",
+      "oneOf": [
+        {
+          "description": "Only rewrap within comments.",
+          "type": "string",
+          "const": "in_comments"
+        },
+        {
+          "description": "Only rewrap within the current selection(s).",
+          "type": "string",
+          "const": "in_selections"
+        },
+        {
+          "description": "Allow rewrapping anywhere.",
+          "type": "string",
+          "const": "anywhere"
+        }
+      ]
+    },
+    "ShowWhitespaceSetting": {
+      "description": "Controls how whitespace should be displayedin the editor.",
+      "oneOf": [
+        {
+          "description": "Draw whitespace only for the selected text.",
+          "type": "string",
+          "const": "selection"
+        },
+        {
+          "description": "Do not draw any tabs or spaces.",
+          "type": "string",
+          "const": "none"
+        },
+        {
+          "description": "Draw all invisible symbols.",
+          "type": "string",
+          "const": "all"
+        },
+        {
+          "description": "Draw whitespaces at boundaries only.\n\nFor a whitespace to be on a boundary, any of the following conditions need to be met:\n- It is a tab\n- It is adjacent to an edge (start or end)\n- It is adjacent to a whitespace (left or right)",
+          "type": "string",
+          "const": "boundary"
+        },
+        {
+          "description": "Draw whitespaces only after non-whitespace characters.",
+          "type": "string",
+          "const": "trailing"
+        }
+      ]
+    },
+    "WhitespaceMapContent": {
+      "type": "object",
+      "properties": {
+        "space": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "tab": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1
+        }
+      }
+    },
+    "InlayHintSettingsContent": {
+      "description": "The settings for inlay hints.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Global switch to toggle hints on and off.\n\nDefault: false",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "show_value_hints": {
+          "description": "Global switch to toggle inline values on and off when debugging.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "show_type_hints": {
+          "description": "Whether type hints should be shown.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "show_parameter_hints": {
+          "description": "Whether parameter hints should be shown.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "show_other_hints": {
+          "description": "Whether other hints should be shown.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "show_background": {
+          "description": "Whether to show a background for inlay hints.\n\nIf set to `true`, the background will use the `hint.background` color\nfrom the current theme.\n\nDefault: false",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "edit_debounce_ms": {
+          "description": "Whether or not to debounce inlay hints updates after buffer edits.\n\nSet to 0 to disable debouncing.\n\nDefault: 700",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 0
+        },
+        "scroll_debounce_ms": {
+          "description": "Whether or not to debounce inlay hints updates after buffer scrolls.\n\nSet to 0 to disable debouncing.\n\nDefault: 50",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 0
+        },
+        "toggle_on_modifiers_press": {
+          "description": "Toggles inlay hints (hides or shows) when the user presses the modifiers specified.\nIf only a subset of the modifiers specified is pressed, hints are not toggled.\nIf no modifiers are specified, this is equivalent to `null`.\n\nDefault: null",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ModifiersContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "ModifiersContent": {
+      "description": "The state of the modifier keys at some point in time",
+      "type": "object",
+      "properties": {
+        "control": {
+          "description": "The control key",
+          "type": "boolean",
+          "default": false
+        },
+        "alt": {
+          "description": "The alt key\nSometimes also known as the 'meta' key",
+          "type": "boolean",
+          "default": false
+        },
+        "shift": {
+          "description": "The shift key",
+          "type": "boolean",
+          "default": false
+        },
+        "platform": {
+          "description": "The command key, on macos\nthe windows key, on windows\nthe super key, on linux",
+          "type": "boolean",
+          "default": false
+        },
+        "function": {
+          "description": "The function key",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "AutoIndentMode": {
+      "description": "Controls the soft-wrapping behavior in the editor.",
+      "oneOf": [
+        {
+          "description": "Adjusts indentation based on syntax context when typing.\nUses tree-sitter to analyze code structure and indent accordingly.",
+          "type": "string",
+          "const": "syntax_aware"
+        },
+        {
+          "description": "Preserve the indentation of the current line when creating new lines,\nbut don't adjust based on syntax context.",
+          "type": "string",
+          "const": "preserve_indent"
+        },
+        {
+          "description": "No automatic indentation. New lines start at column 0.",
+          "type": "string",
+          "const": "none"
+        }
+      ]
+    },
+    "LanguageTaskSettingsContent": {
+      "description": "The task settings for a particular language.",
+      "type": "object",
+      "properties": {
+        "variables": {
+          "description": "Extra task variables to set for a particular language.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "prefer_lsp": {
+          "description": "Use LSP tasks over Zed language extension ones.\nIf no LSP tasks are returned due to error/timeout or regular execution,\nZed language extension tasks will be used instead.\n\nOther Zed tasks will still be shown:\n* Zed task from either of the task config file\n* Zed task from history (e.g. one-off task was spawned before)",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "CompletionSettingsContent": {
+      "description": "Controls how completions are processed for this language.",
+      "type": "object",
+      "properties": {
+        "words": {
+          "description": "Controls how words are completed.\nFor large documents, not all words may be fetched for completion.\n\nDefault: `fallback`",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WordsCompletionMode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "words_min_length": {
+          "description": "How many characters has to be in the completions query to automatically show the words-based completions.\nBefore that value, it's still possible to trigger the words-based completion manually with the corresponding editor command.\n\nDefault: 3",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0
+        },
+        "lsp": {
+          "description": "Whether to fetch LSP completions or not.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "lsp_fetch_timeout_ms": {
+          "description": "When fetching LSP completions, determines how long to wait for a response of a particular server.\nWhen set to 0, waits indefinitely.\n\nDefault: 0",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 0
+        },
+        "lsp_insert_mode": {
+          "description": "Controls how LSP completions are inserted.\n\nDefault: \"replace_suffix\"",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LspInsertMode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "WordsCompletionMode": {
+      "description": "Controls how document's words are completed.",
+      "oneOf": [
+        {
+          "description": "Always fetch document's words for completions along with LSP completions.",
+          "type": "string",
+          "const": "enabled"
+        },
+        {
+          "description": "Only if LSP response errors or times out,\nuse document's words to show completions.",
+          "type": "string",
+          "const": "fallback"
+        },
+        {
+          "description": "Never fetch or complete document's words for completions.\n(Word-based completions can still be queried via a separate action)",
+          "type": "string",
+          "const": "disabled"
+        }
+      ]
+    },
+    "LspInsertMode": {
+      "oneOf": [
+        {
+          "description": "Replaces text before the cursor, using the `insert` range described in the LSP specification.",
+          "type": "string",
+          "const": "insert"
+        },
+        {
+          "description": "Replaces text before and after the cursor, using the `replace` range described in the LSP specification.",
+          "type": "string",
+          "const": "replace"
+        },
+        {
+          "description": "Behaves like `\"replace\"` if the text that would be replaced is a subsequence of the completion text,\nand like `\"insert\"` otherwise.",
+          "type": "string",
+          "const": "replace_subsequence"
+        },
+        {
+          "description": "Behaves like `\"replace\"` if the text after the cursor is a suffix of the completion, and like\n`\"insert\"` otherwise.",
+          "type": "string",
+          "const": "replace_suffix"
+        }
+      ]
+    },
+    "LanguageToSettingsMap": {
+      "description": "Map from language name to settings.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/LanguageSettingsContent"
+      }
+    },
+    "LanguageSettingsContent": {
+      "description": "The settings for a particular language.",
+      "type": "object",
+      "properties": {
+        "tab_size": {
+          "description": "How many columns a tab should occupy.\n\nDefault: 4",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 1,
+          "maximum": 128
+        },
+        "hard_tabs": {
+          "description": "Whether to indent lines using tab characters, as opposed to multiple\nspaces.\n\nDefault: false",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "soft_wrap": {
+          "description": "How to soft-wrap long lines of text.\n\nDefault: none",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SoftWrap"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "preferred_line_length": {
+          "description": "The column at which to soft-wrap lines, for buffers where soft-wrap\nis enabled.\n\nDefault: 80",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0
+        },
+        "show_wrap_guides": {
+          "description": "Whether to show wrap guides in the editor. Setting this to true will\nshow a guide at the 'preferred_line_length' value if softwrap is set to\n'preferred_line_length', and will show any additional guides as specified\nby the 'wrap_guides' setting.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "wrap_guides": {
+          "description": "Character counts at which to show wrap guides in the editor.\n\nDefault: []",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "integer",
+            "format": "uint",
+            "minimum": 0
+          }
+        },
+        "indent_guides": {
+          "description": "Indent guide related settings.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IndentGuideSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "format_on_save": {
+          "description": "Whether or not to perform a buffer format before saving.\n\nDefault: on",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FormatOnSave"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "remove_trailing_whitespace_on_save": {
+          "description": "Whether or not to remove any trailing whitespace from lines of a buffer\nbefore saving it.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "ensure_final_newline_on_save": {
+          "description": "Whether or not to ensure there's a single newline at the end of a buffer\nwhen saving it.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "line_ending": {
+          "description": "How line endings should be handled for new files and during format and\nsave operations.\n\n- `detect`: Detect existing line endings and otherwise use the platform\n  default (`lf` on Unix, `crlf` on Windows).\n- `prefer_lf`: Prefer LF for new files and files with no existing line\n  ending.\n- `prefer_crlf`: Prefer CRLF for new files and files with no existing\n  line ending.\n- `enforce_lf`: Enforce LF during format and save.\n- `enforce_crlf`: Enforce CRLF during format and save.\n\nThe EditorConfig `end_of_line` property overrides this setting and\nbehaves like `enforce_lf` or `enforce_crlf`.\n\nDefault: detect",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LineEndingSetting"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "formatter": {
+          "description": "How to perform a buffer format.\n\nDefault: auto",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FormatterList"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prettier": {
+          "description": "Zed's Prettier integration settings.\nAllows to enable/disable formatting with Prettier\nand configure default Prettier, used when no project-level Prettier installation is found.\n\nDefault: off",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PrettierSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "jsx_tag_auto_close": {
+          "description": "Whether to automatically close JSX tags.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JsxTagAutoCloseSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enable_language_server": {
+          "description": "Whether to use language servers to provide code intelligence.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "language_servers": {
+          "description": "The list of language servers to use (or disable) for this language.\n\nThis array should consist of language server IDs, as well as the following\nspecial tokens:\n- `\"!<language_server_id>\"` - A language server ID prefixed with a `!` will be disabled.\n- `\"...\"` - A placeholder to refer to the **rest** of the registered language servers for this language.\n\nDefault: [\"...\"]",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "semantic_tokens": {
+          "description": "Controls how semantic tokens from language servers are used for syntax highlighting.\n\nOptions:\n- \"off\": Do not request semantic tokens from language servers.\n- \"combined\": Use LSP semantic tokens together with tree-sitter highlighting.\n- \"full\": Use LSP semantic tokens exclusively, replacing tree-sitter highlighting.\n\nDefault: \"off\"",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SemanticTokens"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "document_folding_ranges": {
+          "description": "Controls whether folding ranges from language servers are used instead of\ntree-sitter and indent-based folding.\n\nOptions:\n- \"off\": Use tree-sitter and indent-based folding (default).\n- \"on\": Use LSP folding wherever possible, falling back to tree-sitter and indent-based folding when no results were returned by the server.\n\nDefault: \"off\"",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DocumentFoldingRanges"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "document_symbols": {
+          "description": "Controls the source of document symbols used for outlines and breadcrumbs.\n\nOptions:\n- \"off\": Use tree-sitter queries to compute document symbols (default).\n- \"on\": Use the language server's `textDocument/documentSymbol` LSP response. When enabled, tree-sitter is not used for document symbols.\n\nDefault: \"off\"",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DocumentSymbols"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allow_rewrap": {
+          "description": "Controls where the `editor::Rewrap` action is allowed for this language.\n\nNote: This setting has no effect in Vim mode, as rewrap is already\nallowed everywhere.\n\nDefault: \"in_comments\"",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RewrapBehavior"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "show_edit_predictions": {
+          "description": "Controls whether edit predictions are shown immediately (true)\nor manually by triggering `editor::ShowEditPrediction` (false).\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "edit_predictions_disabled_in": {
+          "description": "Controls whether edit predictions are shown in the given language\nscopes.\n\nExample: [\"string\", \"comment\"]\n\nDefault: []",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "show_whitespaces": {
+          "description": "Whether to show tabs and spaces in the editor.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ShowWhitespaceSetting"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "whitespace_map": {
+          "description": "Visible characters used to render whitespace when show_whitespaces is enabled.\n\nDefault: \"•\" for spaces, \"→\" for tabs.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WhitespaceMapContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extend_comment_on_newline": {
+          "description": "Whether to start a new line with a comment when a previous line is a comment as well.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "extend_list_on_newline": {
+          "description": "Whether to continue markdown lists when pressing enter.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "indent_list_on_tab": {
+          "description": "Whether to indent list items when pressing tab after a list marker.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "inlay_hints": {
+          "description": "Inlay hint related settings.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/InlayHintSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "use_autoclose": {
+          "description": "Whether to automatically type closing characters for you. For example,\nwhen you type '(', Zed will automatically add a closing ')' at the correct position.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "use_auto_surround": {
+          "description": "Whether to automatically surround text with characters for you. For example,\nwhen you select text and type '(', Zed will automatically surround text with ().\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "always_treat_brackets_as_autoclosed": {
+          "description": "Controls how the editor handles the autoclosed characters.\nWhen set to `false`(default), skipping over and auto-removing of the closing characters\nhappen only for auto-inserted characters.\nOtherwise(when `true`), the closing characters are always skipped over and auto-removed\nno matter how they were inserted.\n\nDefault: false",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "use_on_type_format": {
+          "description": "Whether to use additional LSP queries to format (and amend) the code after\nevery \"trigger\" symbol input, defined by LSP server capabilities.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "code_actions_on_format": {
+          "description": "Which code actions to run on save before the formatter.\nThese are not run if formatting is off.\n\nDefault: {} (or {\"source.organizeImports\": true} for Go).",
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        },
+        "linked_edits": {
+          "description": "Whether to perform linked edits of associated ranges, if the language server supports it.\nFor example, when editing opening <html> tag, the contents of the closing </html> tag will be edited as well.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "auto_indent": {
+          "description": "Controls automatic indentation behavior when typing.\n\n- \"syntax_aware\": Adjusts indentation based on syntax context (default)\n- \"preserve_indent\": Preserves current line's indentation on new lines\n- \"none\": No automatic indentation\n\nDefault: syntax_aware",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AutoIndentMode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "auto_indent_on_paste": {
+          "description": "Whether indentation of pasted content should be adjusted based on the context.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "tasks": {
+          "description": "Task configuration for this language.\n\nDefault: {}",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LanguageTaskSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "show_completions_on_input": {
+          "description": "Whether to pop the completions menu while typing in an editor without\nexplicitly requesting it.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "show_completion_documentation": {
+          "description": "Whether to display inline and alongside documentation for items in the\ncompletions menu.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "completions": {
+          "description": "Controls how completions are processed for this language.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CompletionSettingsContent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "debuggers": {
+          "description": "Preferred debuggers for this language.\n\nDefault: []",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "word_diff_enabled": {
+          "description": "Whether to enable word diff highlighting in the editor.\n\nWhen enabled, changed words within modified lines are highlighted\nto show exactly what changed.\n\nDefault: true",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "colorize_brackets": {
+          "description": "Whether to use tree-sitter bracket queries to detect and colorize the brackets in the editor.\n\nDefault: false",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "FileTypeMap": {
+      "description": "Map from language name to file patterns.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/ExtendingSet"
+      }
+    },
+    "ExtendingSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "ScanSymlinksSetting": {
+      "description": "When to scan content of linked directories.",
+      "oneOf": [
+        {
+          "description": "Always scan symlinked directories",
+          "type": "string",
+          "const": "always"
+        },
+        {
+          "description": "Only scan symlinked directories when they've been expanded in the workspace",
+          "type": "string",
+          "const": "expanded"
+        }
+      ]
+    },
+    "ExtendingVec": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "LspSettingsMap": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/LspSettings"
+      }
+    },
+    "LspSettings": {
+      "type": "object",
+      "properties": {
+        "binary": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BinarySettings"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "initialization_options": {
+          "description": "Options passed to the language server at startup.\n\nRef: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#initialize\n\nConsult the documentation for the specific language server to see which settings are supported."
+        },
+        "settings": {
+          "description": "Language server settings.\n\nRef: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_configuration\n\nConsult the documentation for the specific language server to see which settings are supported."
+        },
+        "enable_lsp_tasks": {
+          "description": "If the server supports sending tasks over LSP extensions,\nthis setting can be used to enable or disable them in Zed.\nDefault: true",
+          "type": "boolean",
+          "default": true
+        },
+        "fetch": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FetchSettings"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "BinarySettings": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "arguments": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "env": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "ignore_system_version": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "FetchSettings": {
+      "type": "object",
+      "properties": {
+        "pre_release": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "ProjectTerminalSettingsContent": {
+      "type": "object",
+      "properties": {
+        "shell": {
+          "description": "What shell to use when opening a terminal.\n\nDefault: system",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Shell"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "working_directory": {
+          "description": "What working directory to use when launching the terminal\n\nDefault: current_project_directory",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WorkingDirectory"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "env": {
+          "description": "Any key-value pairs added to this list will be added to the terminal's\nenvironment. Use `:` to separate multiple values.\n\nDefault: {}",
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "detect_venv": {
+          "description": "Activates the python virtual environment, if one is found, in the\nterminal's working directory (as resolved by the working_directory\nsetting). Set this to \"off\" to disable this behavior.\n\nDefault: on",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VenvSettings"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "path_hyperlink_regexes": {
+          "description": "Regexes used to identify paths for hyperlink navigation.\n\nDefault: [\n  // Python-style diagnostics\n  \"File \\\"(?<path>[^\\\"]+)\\\", line (?<line>[0-9]+)\",\n  // Common path syntax with optional line, column, description, trailing punctuation, or\n  // surrounding symbols or quotes\n  [\n    \"(?x)\",\n    \"# optionally starts with 0-2 opening prefix symbols\",\n    \"[({\\\\[<]{0,2}\",\n    \"# which may be followed by an opening quote\",\n    \"(?<quote>[\\\"'`])?\",\n    \"# `path` is the shortest sequence of any non-space character\",\n    \"(?<link>(?<path>[^ ]+?\",\n    \"    # which may end with a line and optionally a column,\",\n    \"    (?<line_column>:+[0-9]+(:[0-9]+)?|:?\\\\([0-9]+([,:][0-9]+)?\\\\))?\",\n    \"))\",\n    \"# which must be followed by a matching quote\",\n    \"(?(<quote>)\\\\k<quote>)\",\n    \"# and optionally a single closing symbol\",\n    \"[)}\\\\]>]?\",\n    \"# if line/column matched, may be followed by a description\",\n    \"(?(<line_column>):[^ 0-9][^ ]*)?\",\n    \"# which may be followed by trailing punctuation\",\n    \"[.,:)}\\\\]>]*\",\n    \"# and always includes trailing whitespace or end of line\",\n    \"([ ]+|$)\"\n  ]\n]",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/PathHyperlinkRegex"
+          }
+        },
+        "path_hyperlink_timeout_ms": {
+          "description": "Timeout for hover and Cmd-click path hyperlink discovery in milliseconds.\n\nDefault: 1",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 0
+        }
+      }
+    },
+    "Shell": {
+      "description": "Shell configuration to open the terminal with.",
+      "oneOf": [
+        {
+          "description": "Use the system's default terminal configuration in /etc/passwd",
+          "type": "string",
+          "const": "system"
+        },
+        {
+          "description": "Use a specific program with no arguments.",
+          "type": "object",
+          "properties": {
+            "program": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "program"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "description": "Use a specific program with arguments.",
+          "type": "object",
+          "properties": {
+            "with_arguments": {
+              "type": "object",
+              "properties": {
+                "program": {
+                  "description": "The program to run.",
+                  "type": "string"
+                },
+                "args": {
+                  "description": "The arguments to pass to the program.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "title_override": {
+                  "description": "An optional string to override the title of the terminal tab",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "program",
+                "args"
+              ]
+            }
+          },
+          "required": [
+            "with_arguments"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "WorkingDirectory": {
+      "oneOf": [
+        {
+          "description": "Use the current file's directory, falling back to the project directory,\nthen the first project in the workspace.",
+          "type": "string",
+          "const": "current_file_directory"
+        },
+        {
+          "description": "Use the current file's project directory. Fallback to the\nfirst project directory strategy if unsuccessful.",
+          "type": "string",
+          "const": "current_project_directory"
+        },
+        {
+          "description": "Use the first project in this workspace's directory. Fallback to using\nthis platform's home directory.",
+          "type": "string",
+          "const": "first_project_directory"
+        },
+        {
+          "description": "Always use this platform's home directory (if it can be found).",
+          "type": "string",
+          "const": "always_home"
+        },
+        {
+          "description": "Always use a specific directory. This value will be shell expanded.\nIf this path is not a valid directory the terminal will default to\nthis platform's home directory  (if it can be found).",
+          "type": "object",
+          "properties": {
+            "always": {
+              "type": "object",
+              "properties": {
+                "directory": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "directory"
+              ]
+            }
+          },
+          "required": [
+            "always"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "VenvSettings": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "off"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "on": {
+              "type": "object",
+              "properties": {
+                "activate_script": {
+                  "description": "Default directories to search for virtual environments, relative\nto the current working directory. We recommend overriding this\nin your project's settings, rather than globally.",
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/ActivateScript"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "venv_name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "directories": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "conda_manager": {
+                  "description": "Preferred Conda manager to use when activating Conda environments.\n\nDefault: auto",
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/CondaManager"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "required": [
+            "on"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ActivateScript": {
+      "type": "string",
+      "enum": [
+        "default",
+        "csh",
+        "fish",
+        "nushell",
+        "power_shell",
+        "pyenv"
+      ]
+    },
+    "CondaManager": {
+      "oneOf": [
+        {
+          "description": "Automatically detect the conda manager",
+          "type": "string",
+          "const": "auto"
+        },
+        {
+          "description": "Use conda",
+          "type": "string",
+          "const": "conda"
+        },
+        {
+          "description": "Use mamba",
+          "type": "string",
+          "const": "mamba"
+        },
+        {
+          "description": "Use micromamba",
+          "type": "string",
+          "const": "micromamba"
+        }
+      ]
+    },
+    "PathHyperlinkRegex": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "DapSettingsContent": {
+      "type": "object",
+      "properties": {
+        "binary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "args": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "env": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ContextServerSettingsContent": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "description": "Whether the context server is enabled.",
+              "type": "boolean",
+              "default": true
+            },
+            "remote": {
+              "description": "Whether to run the context server on the remote server when using remote development.\n\nIf this is false, the context server will always run on the local machine.\n\nDefault: false",
+              "type": "boolean",
+              "default": false
+            },
+            "command": {
+              "type": "string"
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": []
+            },
+            "env": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "timeout": {
+              "description": "Timeout for tool calls in seconds. Defaults to 60 if not specified.",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint64",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "command"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "description": "Whether the context server is enabled.",
+              "type": "boolean",
+              "default": true
+            },
+            "url": {
+              "description": "The URL of the remote context server.",
+              "type": "string"
+            },
+            "headers": {
+              "description": "Optional headers to send.",
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "timeout": {
+              "description": "Timeout for tool calls in seconds. Defaults to global context_server_timeout if not specified.",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint64",
+              "minimum": 0
+            },
+            "oauth": {
+              "description": "Pre-registered OAuth client credentials for authorization servers that\nrequire out-of-band client registration.",
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/OAuthClientSettings"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "description": "Whether the context server is enabled.",
+              "type": "boolean",
+              "default": true
+            },
+            "remote": {
+              "description": "Whether to run the context server on the remote server when using remote development.\n\nIf this is false, the context server will always run on the local machine.\n\nDefault: false",
+              "type": "boolean",
+              "default": false
+            },
+            "settings": {
+              "description": "The settings for this context server specified by the extension.\n\nConsult the documentation for the context server to see what settings\nare supported."
+            }
+          },
+          "required": [
+            "settings"
+          ]
+        }
+      ]
+    },
+    "OAuthClientSettings": {
+      "description": "Pre-registered OAuth client credentials for MCP servers that don't support\nDynamic Client Registration.",
+      "type": "object",
+      "properties": {
+        "client_id": {
+          "description": "The OAuth client ID obtained from out-of-band registration with the\nauthorization server.",
+          "type": "string"
+        },
+        "client_secret": {
+          "description": "The OAuth client secret, if this is a confidential client. For security,\nprefer providing this interactively; we will prompt and store it in\nthe system keychain.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "client_id"
+      ]
+    },
+    "DirenvSettings": {
+      "oneOf": [
+        {
+          "description": "Load direnv configuration through a shell hook",
+          "type": "string",
+          "const": "shell_hook"
+        },
+        {
+          "description": "Load direnv configuration directly using `direnv export json`",
+          "type": "string",
+          "const": "direct"
+        },
+        {
+          "description": "Do not load direnv configuration",
+          "type": "string",
+          "const": "disabled"
+        }
+      ]
+    },
+    "ExtendingVec2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/GitHostingProviderConfig"
+      }
+    },
+    "GitHostingProviderConfig": {
+      "description": "A custom Git hosting provider.",
+      "type": "object",
+      "properties": {
+        "provider": {
+          "description": "The type of the provider.\n\nMust be one of `github`, `gitlab`, `bitbucket`, `gitea`, `forgejo`, or `source_hut`.",
+          "$ref": "#/$defs/GitHostingProviderKind"
+        },
+        "base_url": {
+          "description": "The base URL for the provider (e.g., \"https://code.corp.big.com\").",
+          "type": "string"
+        },
+        "name": {
+          "description": "The display name for the provider (e.g., \"BigCorp GitHub\").",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider",
+        "base_url",
+        "name"
+      ]
+    },
+    "GitHostingProviderKind": {
+      "type": "string",
+      "enum": [
+        "github",
+        "gitlab",
+        "bitbucket",
+        "gitea",
+        "forgejo",
+        "source_hut"
+      ]
+    },
+    "SaturatingBool": {
+      "type": "boolean"
+    }
+  }
+}
